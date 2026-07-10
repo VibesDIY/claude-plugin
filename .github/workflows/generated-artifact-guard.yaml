@@ -1,0 +1,19 @@
+name: generated-artifact-guard
+# This repository is a GENERATED artifact, mirrored from the vibes.diy
+# monorepo's claude-plugin/ directory by its claude-plugin-sync workflow.
+# Every commit must come from that pipeline; hand-pushed changes get
+# overwritten by the next sync, so fail loudly instead of losing work.
+on:
+  push:
+    branches: [main]
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          AUTHOR=$(git log -1 --format='%an')
+          if [ "$AUTHOR" != "vibes-plugin-sync[bot]" ]; then
+            echo "::error::VibesDIY/claude-plugin is generated from VibesDIY/vibes.diy (claude-plugin/). Edit there instead — this push (author: $AUTHOR) will be overwritten by the next sync."
+            exit 1
+          fi
