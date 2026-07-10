@@ -21,6 +21,7 @@ where <subcommand> can be one of:
 - codegen-log - Inspect a vibe's codegen build transcript (the builder↔LLM conversation that generated its source). List chats, or show one chat's prompts / reconstructed model output.
 - db - Read and write Fireproof documents
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
+- developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
 - generate - Generate a vibe from a text prompt, write it to disk, and push it live.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
@@ -162,7 +163,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
 FLAGS:
@@ -182,7 +183,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
 
@@ -206,7 +207,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID (_id); falls back to the body _id, else generated [default: ]
 
@@ -231,7 +232,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
 
@@ -256,7 +257,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --key <str>         - Exact key match (JSON value) [default: ]
   --prefix <str>      - Prefix match (JSON value) [default: ]
@@ -284,7 +285,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
 FLAGS:
@@ -319,7 +320,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -342,7 +343,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -361,7 +362,7 @@ OPTIONS:
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
   --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
-  --user-slug <str>   - a string [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -370,6 +371,84 @@ FLAGS:
 
 ARGUMENTS:
   <KEY> - a string
+```
+
+## `vibes-diy developer`
+
+```text
+vibes-diy CLI developer <subcommand>
+> Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
+
+where <subcommand> can be one of:
+
+- add - Grant a developer the right to edit this vibe's code (they can read all its data and secrets)
+- rm - Revoke a developer grant
+- ls - List developer grants on this vibe
+
+For more help, try running `vibes-diy CLI developer <subcommand> --help`
+```
+
+### `vibes-diy developer add`
+
+```text
+vibes-diy CLI developer add
+> Grant a developer the right to edit this vibe's code (they can read all its data and secrets)
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <HANDLE> - a string
+```
+
+### `vibes-diy developer rm`
+
+```text
+vibes-diy CLI developer rm
+> Revoke a developer grant
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <HANDLE> - a string
+```
+
+### `vibes-diy developer ls`
+
+```text
+vibes-diy CLI developer ls
+> List developer grants on this vibe
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
 ```
 
 ## `vibes-diy edit`
@@ -464,7 +543,7 @@ FLAGS:
 
 ## `vibes-diy mcp`
 
-````text
+```text
 vibes-diy CLI mcp
 > Start an MCP server for AI agent data access (stdio transport)
 
@@ -494,7 +573,7 @@ Add to ~/Library/Application Support/Claude/claude_desktop_config.json:
     }
   }
 }
-````
+```
 
 ### Claude Code
 
@@ -514,8 +593,7 @@ Add to .claude/settings.json:
 ### Test interactively
 
     npx @modelcontextprotocol/inspector npx vibes-diy mcp --app-slug APP
-
-````
+```
 
 ## `vibes-diy pull`
 
@@ -539,7 +617,7 @@ FLAGS:
 
 ARGUMENTS:
   [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
-````
+```
 
 ## `vibes-diy push`
 
