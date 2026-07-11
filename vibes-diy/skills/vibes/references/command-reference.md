@@ -634,6 +634,7 @@ OPTIONS:
   --handle <str>          - Handle to publish under (uses default if omitted) [default: ]
   --user-slug <str>       - a string [default: ]
   --vibe <str>            - Vibe identifier as handle/app-slug [default: ]
+  --message, -m <str>     - Context for the seeded chat: describe what the app is / the request behind it. Becomes the opening message of the vibe's chat instead of a generic 'Initial push' note. [default: ]
   --idle-timeout <number> - Idle timeout in ms (resets on any incoming message). Defaults to api-impl's 30s; bump higher for very large pushes that exceed post-storage DB-write windows. [optional]
 
 FLAGS:
