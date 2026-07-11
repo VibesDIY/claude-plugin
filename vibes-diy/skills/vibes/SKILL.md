@@ -89,6 +89,11 @@ before running commands you are unsure of.
 | Write better prompts / themes / skills | —                                                  | references/prompt-craft.md      |
 | Anything failing                       | —                                                  | references/troubleshooting.md   |
 
+When `push`-ing a newly built vibe, pass `-m "<one-line description of what
+the app does / the user's request>"` so its chat opens with real context
+instead of a generic "Initial push" note — e.g.
+`vibes-diy push -m "A pomodoro timer with a shared leaderboard"`.
+
 ## Introspection rule
 
 For capability questions ("does vibes support X?"), trust sources in this
