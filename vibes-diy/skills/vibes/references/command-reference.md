@@ -465,6 +465,7 @@ OPTIONS:
   --dir <str>         - Directory to write resolved files and push from (defaults to cwd) [default: ]
   --focus <str>       - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
   --model <str>       - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
+  --api-key <str>     - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
 FLAGS:
   --json, -j     - selects json output format [optional]
@@ -494,6 +495,7 @@ OPTIONS:
   --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
   --focus <str>        - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
   --model <str>        - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
+  --api-key <str>      - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
 FLAGS:
   --json, -j     - selects json output format [optional]
