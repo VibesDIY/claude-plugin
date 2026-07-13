@@ -69,7 +69,7 @@ vibes-diy CLI app-chats
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle (uses default if omitted) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -117,7 +117,7 @@ vibes-diy CLI codegen-log
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle (uses default if omitted) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --turn <str>        - With --response: select a specific turn by promptId (default: newest) [optional]
 
 FLAGS:
@@ -163,7 +163,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
@@ -183,7 +183,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
@@ -207,7 +207,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID (_id); falls back to the body _id, else generated [default: ]
@@ -232,7 +232,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
@@ -257,7 +257,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --key <str>         - Exact key match (JSON value) [default: ]
@@ -285,7 +285,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
@@ -320,7 +320,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -343,7 +343,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -362,7 +362,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -401,7 +401,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -423,7 +423,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -442,7 +442,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -464,7 +464,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -486,7 +486,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -523,7 +523,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -545,7 +545,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -567,7 +567,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -585,7 +585,7 @@ vibes-diy CLI edit
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle to publish under (uses default if omitted) [default: ]
+  --handle <str>      - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - a string [default: ]
   --dir <str>         - Directory to write resolved files and push from (defaults to cwd) [default: ]
   --focus <str>       - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
@@ -615,7 +615,7 @@ vibes-diy CLI generate
 OPTIONS:
   --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --app-slug, -a <str> - App slug (server generates one if omitted) [default: ]
-  --handle <str>       - Handle to publish under (uses default if omitted) [default: ]
+  --handle <str>       - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>    - a string [default: ]
   --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
   --focus <str>        - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
@@ -676,7 +676,7 @@ vibes-diy CLI mcp
 
 OPTIONS:
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: <current directory name>]
-  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
 
 FLAGS:
@@ -731,7 +731,7 @@ vibes-diy CLI pull
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle (uses default if omitted) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - a string [default: ]
   --dir <str>         - Directory to write files into (defaults to ./<appSlug>/) [default: ]
   --fsId <str>        - Pull a specific version by fsId (overrides --published / the draft default) [default: ]
@@ -756,7 +756,7 @@ OPTIONS:
   --api-url, -u <str>     - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --mode <str>            - Deploy mode: production or dev [default: production]
   --app-slug, -a <str>    - App slug (defaults to directory name) [default: ]
-  --handle <str>          - Handle to publish under (uses default if omitted) [default: ]
+  --handle <str>          - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>       - a string [default: ]
   --vibe <str>            - Vibe identifier as handle/app-slug [default: ]
   --message, -m <str>     - Context for the seeded chat: describe what the app is / the request behind it. Becomes the opening message of the vibe's chat instead of a generic 'Initial push' note. [default: ]
@@ -780,7 +780,7 @@ vibes-diy CLI publish
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle (uses default if omitted) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --fsId <str>        - Publish a specific version (fsId from `vibes-diy versions`) instead of the latest draft. [default: ]
 
 FLAGS:
@@ -801,7 +801,7 @@ vibes-diy CLI unpublish
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle (uses default if omitted) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -821,7 +821,7 @@ vibes-diy CLI versions
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Handle (uses default if omitted) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -841,7 +841,7 @@ vibes-diy CLI put-asset
 OPTIONS:
   --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --app-slug, -a <str> - App slug (defaults to the file's basename without extension) [default: ]
-  --handle <str>       - Handle (uses default if omitted) [default: ]
+  --handle <str>       - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>    - a string [default: ]
   --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
   --mime-type <str>    - Content-Type for the upload (inferred from extension if omitted) [default: ]
