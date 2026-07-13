@@ -21,6 +21,7 @@ where <subcommand> can be one of:
 - codegen-log - Inspect a vibe's codegen build transcript (the builder↔LLM conversation that generated its source). List chats, or show one chat's prompts / reconstructed model output.
 - db - Read and write Fireproof documents
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
+- recommend - Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
 - generate - Generate a vibe from a text prompt, write it to disk, and push it live.
@@ -371,6 +372,130 @@ FLAGS:
 
 ARGUMENTS:
   <KEY> - a string
+```
+
+## `vibes-diy recommend`
+
+```text
+vibes-diy CLI recommend <subcommand>
+> Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
+
+where <subcommand> can be one of:
+
+- add - Recommend another vibe (prepended to the strip). TARGET is handle/app-slug.
+- ls - List the vibe's curated recommended entries (id + handle/app-slug)
+- rm - Remove a curated entry by its ID (from 'recommend ls')
+- mask - Hide one of YOUR OWN vibes from this vibe's auto recommendations. TARGET is handle/app-slug.
+- unmask - Undo a mask — let an auto-recommended own vibe reappear. TARGET is handle/app-slug.
+
+For more help, try running `vibes-diy CLI recommend <subcommand> --help`
+```
+
+### `vibes-diy recommend add`
+
+```text
+vibes-diy CLI recommend add
+> Recommend another vibe (prepended to the strip). TARGET is handle/app-slug.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <TARGET> - a string
+```
+
+### `vibes-diy recommend ls`
+
+```text
+vibes-diy CLI recommend ls
+> List the vibe's curated recommended entries (id + handle/app-slug)
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy recommend rm`
+
+```text
+vibes-diy CLI recommend rm
+> Remove a curated entry by its ID (from 'recommend ls')
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <ID> - a string
+```
+
+### `vibes-diy recommend mask`
+
+```text
+vibes-diy CLI recommend mask
+> Hide one of YOUR OWN vibes from this vibe's auto recommendations. TARGET is handle/app-slug.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <TARGET> - a string
+```
+
+### `vibes-diy recommend unmask`
+
+```text
+vibes-diy CLI recommend unmask
+> Undo a mask — let an auto-recommended own vibe reappear. TARGET is handle/app-slug.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Handle; defaults to defaultHandle from user settings [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <TARGET> - a string
 ```
 
 ## `vibes-diy developer`
