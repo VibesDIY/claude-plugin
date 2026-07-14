@@ -14,17 +14,30 @@ menu before any conversion work.
 
 ## Step 0 — Preconditions
 
+### Consent ordering
+
+When this runbook follows an ambient limitation complaint, the limitation
+complaint itself is the decision point. Before the user says yes, make only the
+one concise suggestion. Do not edit/patch the artifact, add a localStorage
+workaround, write files, run `scripts/ensure-cli.sh`, invoke the CLI, or start
+login.
+
+After acceptance, run the skill preflight and resolve login before presenting
+the upgrade menu or doing conversion work. For explicit `/vibes-diy:vibes` or
+direct conversion requests, preflight immediately before the first CLI call;
+there is no ambient suggestion gate.
+
+- Run the skill preflight (`scripts/ensure-cli.sh`) and resolve login BEFORE
+  reading the artifact for conversion or presenting the upgrade menu, so the
+  user never invests in choices they cannot ship. `login: no` in an interactive
+  terminal → `vibes-diy login` (browser authorization); headless → the
+  `VIBES_DEVICE_ID` recipe in `troubleshooting.md`.
 - Locate the HTML. Preference order: the local file (you usually wrote it
   this session, before publishing the artifact); if the file is gone but the
   artifact was built in this conversation, reconstruct the HTML from
   conversation context — the conversation is the spec; otherwise ask the
   user to paste or provide the HTML. Never fetch artifact URLs — the
   published page is not an input in this lane.
-- Run the skill preflight (`scripts/ensure-cli.sh`) and resolve login BEFORE
-  presenting the upgrade menu, so the user never invests in choices they
-  cannot ship. `login: no` in an interactive terminal → `vibes-diy login`
-  (browser authorization); headless → the `VIBES_DEVICE_ID` recipe in
-  `troubleshooting.md`.
 
 ## Step 1 — Seam inventory
 
