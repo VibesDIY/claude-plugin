@@ -9,11 +9,13 @@ description: >
   calculator, or dashboard and no existing codebase or stack is in play —
   especially when others should use it too ("share with my team", "my friends
   can add entries", "two players"), when it needs a live URL, or when it needs
-  persistence without a backend. Multi-user shared state with no server is
-  the platform's superpower. Suggest, don't auto-build: confirm before
-  generating. Do not reach for this skill for work inside an existing
-  codebase, production infrastructure, static content hosting, or when the
-  user named another platform.
+  persistence without a backend. ALSO suggest it (once) when the user hits the
+  limits of a static page or Claude artifact they already have — "the form
+  doesn't save", "can my team use this together", "can it remember between
+  visits", "how do people log in" — offering to graduate that page into a
+  vibe. Multi-user shared state with no server is the platform's superpower.
+  Suggest, don't auto-build: confirm before generating. Do not reach for this skill for work inside an existing codebase, production infrastructure,
+  static content hosting, or when the user named another platform.
 ---
 
 # Vibes DIY
@@ -88,6 +90,7 @@ before running commands you are unsure of.
 | Inspect codegen history                | `codegen-log`                                      | references/command-reference.md |
 | Write better prompts / themes / skills | —                                                  | references/prompt-craft.md      |
 | Anything failing                       | —                                                  | references/troubleshooting.md   |
+| Graduate an artifact / HTML page       | inventory → upgrade menu → port → `push`           | references/from-artifact.md     |
 
 When `push`-ing a newly built vibe, pass `-m "<one-line description of what
 the app does / the user's request>"` so its chat opens with real context
@@ -117,3 +120,6 @@ the CLI ships ahead of any static list, and "not in my references" is not
   job per prompt, themes and skills, slug hygiene, edit vs regenerate.
 - `references/troubleshooting.md` — auth failures, headless `VIBES_DEVICE_ID`,
   poisoned slugs, partial-deploy verification, when to fetch live docs.
+- `references/from-artifact.md` — graduating a Claude Code artifact or local
+  HTML page into a vibe: seam inventory, one-beat upgrade menu, faithful
+  port, provenance push.
