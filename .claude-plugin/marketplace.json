@@ -9,7 +9,7 @@
       "name": "vibes-diy",
       "source": "./vibes-diy",
       "description": "One prompt to a deployed, shareable React mini-app — hosting, database, multi-user sync, and in-app AI included.",
-      "version": "0.1.70"
+      "version": "0.1.71"
     }
   ]
 }
