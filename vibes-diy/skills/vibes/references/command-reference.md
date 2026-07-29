@@ -18,6 +18,7 @@ where <subcommand> can be one of:
 
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
+- claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
 - codegen-log - Inspect a vibe's codegen build transcript (the builder↔LLM conversation that generated its source). List chats, or show one chat's prompts / reconstructed model output.
 - db - Read and write Fireproof documents
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
@@ -106,6 +107,24 @@ FLAGS:
 ARGUMENTS:
   [vibe]   - ignored [optional]
   [chatId] - ignored [optional]
+```
+
+## `vibes-diy claim-handle`
+
+```text
+vibes-diy CLI claim-handle
+> Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [name] - The handle to claim. Omit to list suggestions instead of claiming. [optional]
 ```
 
 ## `vibes-diy codegen-log`
