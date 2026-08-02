@@ -16,6 +16,7 @@ vibes-diy CLI <subcommand>
 
 where <subcommand> can be one of:
 
+- app - Operate a deployed vibe: scheduled-task health, recovery, and its ctx.log diagnostics
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
 - claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
@@ -59,6 +60,85 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 - `npx vibes-diy login` — authenticate this device (run once before first push)
 - `npx vibes-diy mcp --help` — start an MCP server for AI agent data access (Claude Desktop / Cowork)
 - `npx vibes-diy help` — show all available commands
+```
+
+## `vibes-diy app`
+
+```text
+vibes-diy CLI app <subcommand>
+> Operate a deployed vibe: scheduled-task health, recovery, and its ctx.log diagnostics
+
+where <subcommand> can be one of:
+
+- status - Show a vibe's scheduled-task health: last tick, next tick, failures. Re-arms a dead timer if it finds one.
+- rearm - Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
+- logs - Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
+
+For more help, try running `vibes-diy CLI app <subcommand> --help`
+```
+
+### `vibes-diy app status`
+
+```text
+vibes-diy CLI app status
+> Show a vibe's scheduled-task health: last tick, next tick, failures. Re-arms a dead timer if it finds one.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+### `vibes-diy app rearm`
+
+```text
+vibes-diy CLI app rearm
+> Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+### `vibes-diy app logs`
+
+```text
+vibes-diy CLI app logs
+> Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --since <str>       - How far back to read: a duration (30m, 2h, 1d, 1w) or an ISO timestamp. Default 1h. [default: 1h]
+  --level <str>       - Only this level: debug, info, warn or error [default: ]
+  --limit <number>    - Maximum events per read (max 500) [default: 100]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --tail     - Keep following new events until interrupted (Ctrl-C) [optional]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
 ```
 
 ## `vibes-diy app-chats`
