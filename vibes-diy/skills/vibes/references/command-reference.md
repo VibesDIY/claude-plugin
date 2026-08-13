@@ -782,7 +782,12 @@ FLAGS:
   --help, -h - show help [optional]
 ## MCP Server Setup
 
-Tools: vibes_list_apps, vibes_list_databases, vibes_get, vibes_put, vibes_delete, vibes_query
+Tools: vibes_list_apps, vibes_list_databases, vibes_get, vibes_put, vibes_delete, vibes_query, vibes_generate
+
+`vibes_generate` builds a brand-new vibe from a text prompt and deploys it live —
+it takes minutes and spends your AI credits. The new app is separate from the
+`--app-slug` this server was started with; the data tools keep pointing at that
+one.
 
 Requires: npx vibes-diy login (one time)
 
