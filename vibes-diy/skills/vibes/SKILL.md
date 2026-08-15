@@ -92,6 +92,7 @@ before running commands you are unsure of.
 | Change a deployed vibe's code          | `vibes-diy pull` → edit locally → `vibes-diy push` | command-reference.md            |
 | Promote / retract a vibe               | `publish` / `unpublish`                            | references/command-reference.md |
 | See what exists                        | `list`, `versions`                                 | references/command-reference.md |
+| Change the chips visitors see          | `app chips <vibe> "…" "…"`                         | references/command-reference.md |
 | Read / write app data                  | `db` subcommands                                   | references/data-and-secrets.md  |
 | Manage secrets                         | `secrets`                                          | references/data-and-secrets.md  |
 | Upload a binary asset                  | `put-asset`                                        | references/data-and-secrets.md  |
@@ -99,6 +100,10 @@ before running commands you are unsure of.
 | Write better prompts / themes / skills | —                                                  | references/prompt-craft.md      |
 | Anything failing                       | —                                                  | references/troubleshooting.md   |
 | Graduate an artifact / HTML page       | inventory → upgrade menu → port → `push`           | references/from-artifact.md     |
+
+Chips are visitor-facing published copy: `publish` (and every codegen turn's
+auto-publish) re-derives them from the vibe's chat and OVERWRITES anything set
+with `app chips`, so set them after publishing, not before.
 
 When `push`-ing a newly built vibe, pass `-m "<one-line description of what
 the app does / the user's request>"` so its chat opens with real context
