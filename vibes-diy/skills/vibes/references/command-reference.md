@@ -16,7 +16,7 @@ vibes-diy CLI <subcommand>
 
 where <subcommand> can be one of:
 
-- app - Operate a deployed vibe: scheduled-task health, recovery, and its ctx.log diagnostics
+- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, and its visitor-facing chips
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
 - claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
@@ -67,13 +67,14 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 
 ```text
 vibes-diy CLI app <subcommand>
-> Operate a deployed vibe: scheduled-task health, recovery, and its ctx.log diagnostics
+> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, and its visitor-facing chips
 
 where <subcommand> can be one of:
 
 - status - Show a vibe's scheduled-task health: last tick, next tick, failures. Re-arms a dead timer if it finds one.
 - rearm - Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
 - logs - Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
+- chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 
 For more help, try running `vibes-diy CLI app <subcommand> --help`
 ```
@@ -140,6 +141,29 @@ FLAGS:
 
 ARGUMENTS:
   [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+### `vibes-diy app chips`
+
+```text
+vibes-diy CLI app chips
+> Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --fs-id <str>       - Stamp this published version instead of the live release [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --clear    - Show visitors no chips at all [optional]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe]    - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [...chip] - The chip labels, in order. More than 3 are trimmed to the first 3.
 ```
 
 ## `vibes-diy app-chats`
