@@ -53,7 +53,8 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 
 ### Other Commands
 
-- `npx vibes-diy push --instant-join` — deploy and auto-accept sharing so anyone with the link can use it
+- `npx vibes-diy push --access gated` — deploy so anyone can view but only members write (`open` is the default, `private` is members-only)
+- `npx vibes-diy push --no-access-fn` — skip the access wizard (a codegen turn) when going public without an `access.js`
 - `npx vibes-diy push --app-slug other-name` — deploy to a different app slug instead of the directory name
 - `npx vibes-diy unpublish <vibe>` — take a deployed vibe down (reversible; code and data are kept)
 - `npx vibes-diy publish <vibe>` — make it live again, or promote a `--mode dev` draft to production
@@ -725,6 +726,7 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
+  --no-access-fn - Publish without running the access wizard (a second codegen turn) when the generated app has no access.js. Nothing will govern what visitors do with its documents. [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --dry-run      - Inspect the prompt the server would dispatch; writes no files, pushes nothing, and creates nothing server-side (no vibe metadata, no chat/app-slug bookkeeping row) [optional]
   --transcript   - With --dry-run, render the payload as a human-readable transcript instead of JSON [optional]
@@ -863,15 +865,16 @@ OPTIONS:
   --handle <str>          - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>       - a string [default: ]
   --vibe <str>            - Vibe identifier as handle/app-slug [default: ]
+  --access <str>          - Deployment posture: open (anyone can reach it; your access.js governs its documents), gated (anyone can view, members write), private (members only). Defaults to open. [default: ]
+  --api-key <str>         - Provider API key for a wizard turn triggered by this push (BYOK): bills your own key instead of your Vibes credits. Not persisted. [optional]
   --message, -m <str>     - Context for the seeded chat: describe what the app is / the request behind it. Becomes the opening message of the vibe's chat instead of a generic 'Initial push' note. [default: ]
   --idle-timeout <number> - Idle timeout in ms (resets on any incoming message). Defaults to api-impl's 30s; bump higher for very large pushes that exceed post-storage DB-write windows. [optional]
 
 FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
-  --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default. Use --private to opt out.] [optional]
-  --public       - [Deprecated: no-op. Public access is now always enabled by default. Use --private to opt out.] [optional]
-  --private      - Opt out of fast-path defaults: disables public access and auto-accept-editor. Use for private or gated apps. [optional]
+  --private      - Alias for --access private. [optional]
+  --no-access-fn - Publish to a public posture with no access.js instead of running the access wizard (a codegen turn). Nothing will govern what visitors do with your app's documents. [optional]
   --help, -h     - show help [optional]
 ```
 
