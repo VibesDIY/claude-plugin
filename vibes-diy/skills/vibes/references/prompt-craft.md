@@ -88,8 +88,16 @@ vibes-diy edit team-standup-board "add a due-date field to each task" --dry-run 
 
 ## Multi-user by default
 
-Pushed vibes default to public access with auto-accept editor grants — any
-signed-in visitor can request edit access and get it automatically. This is
-usually what a user wants for a collaborative app, but mention `--private`
-on `vibes-diy push` when they want to opt out of that fast path (private or
-gated apps).
+A push states the app's access posture in one word: `--access open` (the
+default) means anyone can reach it, with the app's own `access.js` governing
+what each visitor may do with its documents — not "all your data is public".
+`--access gated` lets anyone view but only members write; `--access private`
+(also spelled `--private`) is members only.
+
+Taking an app to `open` or `gated` with no `access.js` in the directory runs
+the **access wizard** first — a codegen turn that writes the rules before the
+app goes public. It costs a turn, so mention the two escapes when they matter:
+write an `access.js` yourself (no wizard fires), or pass `--no-access-fn` to
+publish with nothing governing visitors. If the wizard's rules accept
+anonymous submissions, that same push admits anonymous writers — the rules
+and the setting land together.

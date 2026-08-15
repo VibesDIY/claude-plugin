@@ -143,10 +143,13 @@ exact spelling. On success the CLI prints the live URL (exit code is ground
 truth). Report the URL AND enumerate what graduated: what now saves, what is
 shared vs private, what requires sign-in.
 
-Push defaults are the open fast-path: public access (world-readable) and
-auto-accept editor. For a sign-in-gated or private-leaning app, consider
-`push --private` (disables both) and tell the user what that changes —
-visitors then need access instead of just the link.
+A push defaults to `--access open`: anyone can reach the app, and its own
+`access.js` governs what visitors may do with its documents. For a
+sign-in-gated app use `--access gated` (anyone views, members write); for a
+private one `--access private`, and tell the user what changes — visitors then
+need access instead of just the link. Going `open`/`gated` from a directory
+with no `access.js` runs the access wizard (one codegen turn) to write those
+rules first; `--no-access-fn` skips it and publishes ungoverned.
 
 ## Step 5 — Handoff
 
