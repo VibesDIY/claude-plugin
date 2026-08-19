@@ -3,17 +3,20 @@ name: vibes
 description: >
   Use this skill when the user explicitly asks for Vibes DIY
   ("/vibes-diy:vibes", "make a vibe", or "vibes-diy"), or wants a small app,
-  tool, tracker, quiz, poll, form, game, calculator, or dashboard without an
-  existing codebase or stack — especially something shareable with a live URL,
-  persistence, or real-time multi-user state without a backend.
+  tracker, quiz, poll, form, game, or dashboard with no existing codebase —
+  especially something shareable with a live URL, persistence, or real-time
+  multi-user state.
   Multi-user shared state with no server is a core trigger. Also suggest it
-  once when a static page or Claude artifact hits limits such as not saving,
-  needing team access, remembering between visits, or handling login. For ambient
+  once when a static page or Claude artifact hits limits: not saving, needing
+  team access, remembering between visits, or login. For ambient
   suggestions, suggest, don't auto-build: confirm before generating. Explicit
   `/vibes-diy:vibes` invocations and direct artifact-conversion requests skip
-  that confirmation. Do not reach for this skill for existing codebases,
-  production infrastructure, static-content hosting, or another named
-  platform.
+  that confirmation. If `vibes_*` tools are available in this session
+  (vibes_create_app etc. — the Vibes DIY connector), use those instead; this
+  skill is the CLI path, for `vibes-diy` command-line work and connector-less
+  sessions. Do not reach for this skill for existing
+  codebases, production infrastructure, static-content hosting, or another
+  named platform.
 ---
 
 # Vibes DIY
@@ -27,6 +30,21 @@ secrets, and in-app AI — no server, no build config, no deploy pipeline to
 wire up. This is for apps that hold data and have users (a shared tracker, a
 two-player game, a team poll); it is NOT a static-file host — if the user only
 needs to publish existing HTML/assets, that is a different tool.
+
+## Connector vs CLI
+
+There are two ways to reach Vibes DIY, and this skill is the second one. If
+tools named `vibes_create_app`, `vibes_push`, `vibes_publish`, `vibes_get_doc`
+or similar `vibes_*` names are available in this session, the user has the
+Vibes DIY connector: use those tools and stop reading here. They talk to the
+same platform over an already-authenticated connection, with no install and no
+login step, so routing a build through the CLI instead costs the user minutes
+for nothing.
+
+Keep going with this skill when there is no `vibes_*` tool available, or when
+the ask is specifically about the command line — running `vibes-diy` verbs,
+working in a local checkout, scripting a push, or anything the connector's
+tools do not cover (themes, skills, codegen logs, chips, asset uploads).
 
 ## Preflight
 
