@@ -24,6 +24,7 @@ where <subcommand> can be one of:
 - db - Read and write Fireproof documents
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
 - recommend - Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
+- retention - Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
 - generate - Generate a vibe from a text prompt, write it to disk, and push it live.
@@ -620,6 +621,54 @@ FLAGS:
 
 ARGUMENTS:
   <TARGET> - a string
+```
+
+## `vibes-diy retention`
+
+```text
+vibes-diy CLI retention <subcommand>
+> Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
+
+where <subcommand> can be one of:
+
+- preview - Send yourself (or a @vibes.diy teammate) one lifecycle-mail step, through the real send path. Admin-gated.
+- reset - Clear a retention step's already-sent claim so it can be previewed again (admin-gated, same recipient rule).
+
+For more help, try running `vibes-diy CLI retention <subcommand> --help`
+```
+
+### `vibes-diy retention preview`
+
+```text
+vibes-diy CLI retention preview
+> Send yourself (or a @vibes.diy teammate) one lifecycle-mail step, through the real send path. Admin-gated.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --step <str>        - Retention step id (e.g. day3-first-app) [default: ]
+  --user <str>        - Target Clerk userId — defaults to your own account [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy retention reset`
+
+```text
+vibes-diy CLI retention reset
+> Clear a retention step's already-sent claim so it can be previewed again (admin-gated, same recipient rule).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --user <str>        - Target Clerk userId [default: ]
+  --step <str>        - Retention step id — omit to clear every claim on the account [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
 ```
 
 ## `vibes-diy developer`
