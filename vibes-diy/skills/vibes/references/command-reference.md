@@ -295,6 +295,7 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --admin    - Request platform-admin elevation for a read of ANOTHER owner's vibe (bypasses per-user channel filtering). Not needed for your own vibes; honored only for allowlisted platform admins [optional]
   --help, -h - show help [optional]
 ```
 
@@ -316,6 +317,7 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --admin    - Request platform-admin elevation for a read of ANOTHER owner's vibe (bypasses per-user channel filtering). Not needed for your own vibes; honored only for allowlisted platform admins [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
@@ -340,7 +342,7 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
-  --admin    - Write with admin override (bypasses the vibe's access function). Works for the vibe owner or a platform admin [optional]
+  --admin    - Write with admin override: bypasses the legacy db ACL. The vibe's access function still runs and can still refuse — --admin is only a hint it may honor. Works for the vibe owner or a platform admin [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
@@ -365,7 +367,7 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
-  --admin    - Delete with admin override (bypasses the db ACL). Works for the vibe owner or a platform admin [optional]
+  --admin    - Delete with admin override: bypasses the legacy db ACL. The vibe's access function still runs and can still refuse. Works for the vibe owner or a platform admin [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
@@ -394,6 +396,7 @@ FLAGS:
   --json, -j   - selects json output format [optional]
   --text, -t   - select text output format [default: true]
   --descending - Return results in descending order [optional]
+  --admin      - Request platform-admin elevation for a read of ANOTHER owner's vibe (bypasses per-user channel filtering). Not needed for your own vibes; honored only for allowlisted platform admins [optional]
   --help, -h   - show help [optional]
 
 ARGUMENTS:
