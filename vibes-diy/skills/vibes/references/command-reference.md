@@ -288,7 +288,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
@@ -309,7 +309,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
@@ -334,7 +334,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID (_id); falls back to the body _id, else generated [default: ]
@@ -359,7 +359,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
@@ -384,7 +384,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --key <str>         - Exact key match (JSON value) [default: ]
@@ -413,7 +413,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
@@ -448,7 +448,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -471,7 +471,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -490,7 +490,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -529,7 +529,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -551,7 +551,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -570,7 +570,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -592,7 +592,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -614,7 +614,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -699,7 +699,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -721,7 +721,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -743,7 +743,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
