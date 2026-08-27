@@ -916,12 +916,14 @@ OPTIONS:
   --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
   --user-slug <str>   - a string [default: ]
   --dir <str>         - Directory to write files into (defaults to ./<appSlug>/) [default: ]
-  --fsId <str>        - Pull a specific version by fsId (overrides --published / the draft default) [default: ]
+  --fsId <str>        - Pull a specific version by fsId (use instead of --version / --published / --draft) [default: ]
+  --version <str>     - Pull a specific version by the label the version menu shows, e.g. v3 (or 3) [default: ]
 
 FLAGS:
   --json, -j  - selects json output format [optional]
   --text, -t  - select text output format [default: true]
   --published - Pull the published (production) version instead of your latest draft [optional]
+  --draft     - Pull the owner's latest unreleased draft. Already the default for your own vibes; on a platform-admin pull of someone else's vibe this is the explicit, separately audited opt-in to their unreleased work (a bare pull serves the published release) [optional]
   --help, -h  - show help [optional]
 
 ARGUMENTS:
