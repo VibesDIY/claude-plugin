@@ -342,7 +342,7 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
-  --admin    - Write with admin override: bypasses the legacy db ACL. The vibe's access function still runs and can still refuse — --admin is only a hint it may honor. Works for the vibe owner or a platform admin [optional]
+  --admin    - Write with admin override: bypasses the legacy db ACL. The vibe's access function still runs and can still refuse — --admin is only a hint it may honor, and a refused write stays refused (unlike `db del --admin`, which forces the delete). Works for the vibe owner or a platform admin [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
@@ -367,7 +367,7 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
-  --admin    - Delete with admin override: bypasses the legacy db ACL. The vibe's access function still runs and can still refuse. Works for the vibe owner or a platform admin [optional]
+  --admin    - Delete with admin override: bypasses the legacy db ACL, and — deletes only — proceeds even when the vibe's access function refuses. Every forced delete is audited. Note the asymmetry: `db put --admin` is NOT forced past the access function. Works for the vibe owner or a platform admin [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
