@@ -847,7 +847,7 @@ FLAGS:
 
 ## `vibes-diy mcp`
 
-```text
+````text
 vibes-diy CLI mcp
 > Start an MCP server for AI agent data access (stdio transport)
 
@@ -902,7 +902,7 @@ Add to .mcp.json in your project root:
 ### Test interactively
 
     npx @modelcontextprotocol/inspector npx vibes-diy mcp --app-slug APP
-```
+````
 
 ## `vibes-diy pull`
 
