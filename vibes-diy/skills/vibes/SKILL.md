@@ -108,6 +108,7 @@ before running commands you are unsure of.
 | User intent                            | Command                                            | Reference                       |
 | -------------------------------------- | -------------------------------------------------- | ------------------------------- |
 | Change a deployed vibe's code          | `vibes-diy pull` → edit locally → `vibes-diy push` | command-reference.md            |
+| Copy a vibe into your account          | `remix <handle>/<slug> [--to …]`                   | references/command-reference.md |
 | Promote / retract a vibe               | `publish` / `unpublish`                            | references/command-reference.md |
 | See what exists                        | `list`, `versions`                                 | references/command-reference.md |
 | Change the chips visitors see          | `app chips <vibe> "…" "…"`                         | references/command-reference.md |
@@ -127,6 +128,13 @@ When `push`-ing a newly built vibe, pass `-m "<one-line description of what
 the app does / the user's request>"` so its chat opens with real context
 instead of a generic "Initial push" note — e.g.
 `vibes-diy push -m "A pomodoro timer with a shared leaderboard"`.
+
+A vibe's look (theme, style, layout, icon, title) does NOT live in its files, so
+`pull` + `push` copies the code and loses the look. `vibes-diy remix
+<handle>/<slug>` copies both; `push --from <handle>/<slug>` carries the look of
+one of your own vibes into the app you are pushing (the qa → real-handle
+promotion), and `remix --settings-only --to <handle>/<slug>` repairs a copy that
+was already made the old way.
 
 ## Introspection rule
 
