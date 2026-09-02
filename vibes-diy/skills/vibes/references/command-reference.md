@@ -33,6 +33,7 @@ where <subcommand> can be one of:
 - mcp - Start an MCP server for AI agent data access (stdio transport)
 - pull - Download source files of a deployed vibe to disk.
 - push - Upload files from the current directory to a vibe.
+- remix - Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands it live (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
 - publish - Make a vibe live: promote its latest draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
 - unpublish - Take a deployed vibe down (reversible). De-indexes the slug and blocks its public URL/remix/version listing; code, data, and grants are kept. Bring it back with `publish`.
 - versions - List every version of a vibe (fsId, mode, releaseSeq). Owner sees drafts; pull any with `pull --fsId`.
@@ -945,6 +946,7 @@ OPTIONS:
   --user-slug <str>       - a string [default: ]
   --vibe <str>            - Vibe identifier as handle/app-slug [default: ]
   --access <str>          - Deployment posture: open (anyone can reach it; your access.js governs its documents), gated (anyone can view, members write), private (members only). Defaults to open. [default: ]
+  --from <str>            - Carry the settings (theme, style, layout, icon, title) of this vibe of yours — handle/app-slug — into the pushed app. The source must be a vibe you own; that is checked before anything is minted. [default: ]
   --api-key <str>         - Provider API key for a wizard turn triggered by this push (BYOK): bills your own key instead of your Vibes credits. Not persisted. [optional]
   --message, -m <str>     - Context for the seeded chat: describe what the app is / the request behind it. Becomes the opening message of the vibe's chat instead of a generic 'Initial push' note. [default: ]
   --idle-timeout <number> - Idle timeout in ms (resets on any incoming message). Defaults to api-impl's 30s; bump higher for very large pushes that exceed post-storage DB-write windows. [optional]
@@ -955,6 +957,27 @@ FLAGS:
   --private      - Alias for --access private. [optional]
   --no-access-fn - For probes and testing: publish to a public posture with NO access.js instead of running the access wizard, so nothing governs what visitors do with your app's documents. Not for an app you intend people to use — let the wizard run, write access.js yourself, or push --access private. [optional]
   --help, -h     - show help [optional]
+```
+
+## `vibes-diy remix`
+
+```text
+vibes-diy CLI remix
+> Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands it live (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --to <str>          - Destination as handle/app-slug. Both are pins: a handle you don't own, or a slug already taken, is refused. [default: ]
+
+FLAGS:
+  --json, -j      - selects json output format [optional]
+  --text, -t      - select text output format [default: true]
+  --published     - Land the copy live (clone) instead of in the editor. [optional]
+  --settings-only - Carry only the settings (look, title, icon…) into --to, which must already exist and be yours. [optional]
+  --help, -h      - show help [optional]
+
+ARGUMENTS:
+  <vibe> - The vibe to copy, as handle/app-slug
 ```
 
 ## `vibes-diy publish`
