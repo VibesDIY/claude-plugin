@@ -55,7 +55,7 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 ### Other Commands
 
 - `npx vibes-diy push --access gated` — deploy so anyone can view but only members write (`open` is the default, `private` is members-only)
-- `npx vibes-diy push --no-access-fn` — skip the access wizard (a codegen turn) when going public without an `access.js`
+- `npx vibes-diy push --access private` — deploy for you and the members you invite, and nobody else
 - `npx vibes-diy push --app-slug other-name` — deploy to a different app slug instead of the directory name
 - `npx vibes-diy unpublish <vibe>` — take a deployed vibe down (reversible; code and data are kept)
 - `npx vibes-diy publish <vibe>` — make it live again, or promote a `--mode dev` draft to production
@@ -774,6 +774,7 @@ FLAGS:
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --dry-run      - Inspect the prompt the server would dispatch; do not write files or push [optional]
+  --direct       - Send the edit straight to the builder, skipping the conversation [optional]
   --transcript   - With --dry-run, render the payload as a human-readable transcript instead of JSON [optional]
   --help, -h     - show help [optional]
 
@@ -802,7 +803,7 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
-  --no-access-fn - Publish without running the access wizard (a second codegen turn) when the generated app has no access.js. Nothing will govern what visitors do with its documents. [optional]
+  --no-access-fn - For probes and testing: publish with NO access.js instead of running the access wizard, so nothing governs what visitors do with the app's documents. Not for an app you intend people to use — let the wizard run, or write access.js yourself. [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --dry-run      - Inspect the prompt the server would dispatch; writes no files, pushes nothing, and creates nothing server-side (no vibe metadata, no chat/app-slug bookkeeping row) [optional]
   --transcript   - With --dry-run, render the payload as a human-readable transcript instead of JSON [optional]
@@ -952,7 +953,7 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --private      - Alias for --access private. [optional]
-  --no-access-fn - Publish to a public posture with no access.js instead of running the access wizard (a codegen turn). Nothing will govern what visitors do with your app's documents. [optional]
+  --no-access-fn - For probes and testing: publish to a public posture with NO access.js instead of running the access wizard, so nothing governs what visitors do with your app's documents. Not for an app you intend people to use — let the wizard run, write access.js yourself, or push --access private. [optional]
   --help, -h     - show help [optional]
 ```
 
