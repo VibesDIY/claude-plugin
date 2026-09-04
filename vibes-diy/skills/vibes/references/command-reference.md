@@ -33,7 +33,7 @@ where <subcommand> can be one of:
 - mcp - Start an MCP server for AI agent data access (stdio transport)
 - pull - Download source files of a deployed vibe to disk.
 - push - Upload files from the current directory to a vibe.
-- remix - Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands it live (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
+- remix - Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands you on the live URL (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
 - publish - Make a vibe live: promote its latest draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
 - unpublish - Take a deployed vibe down (reversible). De-indexes the slug and blocks its public URL/remix/version listing; code, data, and grants are kept. Bring it back with `publish`.
 - versions - List every version of a vibe (fsId, mode, releaseSeq). Owner sees drafts; pull any with `pull --fsId`.
@@ -963,7 +963,7 @@ FLAGS:
 
 ```text
 vibes-diy CLI remix
-> Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands it live (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
+> Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands you on the live URL (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -972,7 +972,7 @@ OPTIONS:
 FLAGS:
   --json, -j      - selects json output format [optional]
   --text, -t      - select text output format [default: true]
-  --published     - Land the copy live (clone) instead of in the editor. [optional]
+  --published     - Land on the copy's live URL (clone) instead of in the editor. Either way the copy is published and private. [optional]
   --settings-only - Carry only the settings (look, title, icon…) into --to, which must already exist and be yours. [optional]
   --help, -h      - show help [optional]
 
