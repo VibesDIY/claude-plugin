@@ -75,6 +75,7 @@ where <subcommand> can be one of:
 
 - status - Show a vibe's scheduled-task health: last tick, next tick, failures. Re-arms a dead timer if it finds one.
 - rearm - Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
+- schedule - Control a vibe's scheduled task (turning it back on is `app rearm`, which reads the live release)
 - logs - Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
 - chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 
@@ -106,6 +107,39 @@ ARGUMENTS:
 ```text
 vibes-diy CLI app rearm
 > Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+### `vibes-diy app schedule`
+
+```text
+vibes-diy CLI app schedule <subcommand>
+> Control a vibe's scheduled task (turning it back on is `app rearm`, which reads the live release)
+
+where <subcommand> can be one of:
+
+- off - Stop a vibe's scheduled task now (a pause — the live release is untouched, so a deploy re-arms it).
+
+For more help, try running `vibes-diy CLI app schedule <subcommand> --help`
+```
+
+#### `vibes-diy app schedule off`
+
+```text
+vibes-diy CLI app schedule off
+> Stop a vibe's scheduled task now (a pause — the live release is untouched, so a deploy re-arms it).
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
