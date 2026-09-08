@@ -840,8 +840,6 @@ FLAGS:
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
   --no-access-fn - For probes and testing: publish with NO access.js instead of running the access wizard, so nothing governs what visitors do with the app's documents. Not for an app you intend people to use — let the wizard run, or write access.js yourself. [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
-  --dry-run      - Inspect the prompt the server would dispatch; writes no files, pushes nothing, and creates nothing server-side (no vibe metadata, no chat/app-slug bookkeeping row) [optional]
-  --transcript   - With --dry-run, render the payload as a human-readable transcript instead of JSON [optional]
   --help, -h     - show help [optional]
 
 ARGUMENTS:
