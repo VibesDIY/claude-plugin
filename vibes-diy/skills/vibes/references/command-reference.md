@@ -838,7 +838,7 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
-  --no-access-fn - For probes and testing: publish with NO access.js instead of running the access wizard, so nothing governs what visitors do with the app's documents. Not for an app you intend people to use — let the wizard run, or write access.js yourself. [optional]
+  --no-access-fn - For probes and testing: publish with NO access.js, so nothing governs what visitors do with the app's documents. Without it, a public push with no access.js is refused. Not for an app you intend people to use — write access.js yourself. [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --help, -h     - show help [optional]
 
@@ -987,7 +987,7 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --private      - Alias for --access private. [optional]
-  --no-access-fn - For probes and testing: publish to a public posture with NO access.js instead of running the access wizard, so nothing governs what visitors do with your app's documents. Not for an app you intend people to use — let the wizard run, write access.js yourself, or push --access private. [optional]
+  --no-access-fn - For probes and testing: publish to a public posture with NO access.js, so nothing governs what visitors do with your app's documents. Without it, a public push with no access.js is refused. Not for an app you intend people to use — write access.js yourself, or push --access private. [optional]
   --help, -h     - show help [optional]
 ```
 
