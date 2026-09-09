@@ -94,10 +94,10 @@ what each visitor may do with its documents — not "all your data is public".
 `--access gated` lets anyone view but only members write; `--access private`
 (also spelled `--private`) is members only.
 
-Taking an app to `open` or `gated` with no `access.js` in the directory runs
-the **access wizard** first — a codegen turn that writes the rules before the
-app goes public. It costs a turn, so mention the two escapes when they matter:
-write an `access.js` yourself (no wizard fires), or pass `--no-access-fn` to
-publish with nothing governing visitors. If the wizard's rules accept
-anonymous submissions, that same push admits anonymous writers — the rules
-and the setting land together.
+Taking an app to `open` or `gated` with no `access.js` in the directory
+**refuses the push**: opening an app to people who are not you with nothing
+governing what they may do with its documents is a decision, not a default.
+The two ways through are write an `access.js` (`vibes-diy edit` will, if you
+ask it to), or pass `--no-access-fn` to publish with nothing governing
+visitors. The CLI no longer generates the rules for you mid-push — that was a
+special server turn and it is gone.

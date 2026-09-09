@@ -148,8 +148,8 @@ A push defaults to `--access open`: anyone can reach the app, and its own
 sign-in-gated app use `--access gated` (anyone views, members write); for a
 private one `--access private`, and tell the user what changes — visitors then
 need access instead of just the link. Going `open`/`gated` from a directory
-with no `access.js` runs the access wizard (one codegen turn) to write those
-rules first; `--no-access-fn` skips it and publishes ungoverned.
+with no `access.js` refuses the push — write those rules first, or pass
+`--no-access-fn` to publish ungoverned.
 
 ## Step 5 — Handoff
 
