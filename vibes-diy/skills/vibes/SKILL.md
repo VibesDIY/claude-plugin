@@ -129,6 +129,15 @@ the app does / the user's request>"` so its chat opens with real context
 instead of a generic "Initial push" note — e.g.
 `vibes-diy push -m "A pomodoro timer with a shared leaderboard"`.
 
+`push` sends the whole directory: source as text, and images, audio, fonts,
+PDFs and CSVs as uploaded files the release references by content hash — so a
+`logo.png` beside `App.jsx` ships with the app and `<img src="/logo.png">`
+works. A file whose extension the platform does not serve is REFUSED by name
+and nothing is pushed, rather than being quietly left out; remove it or rename
+it. Anything that is not an image needs a card on file ("Add a card to upload
+files that aren't images."), and `pull` brings the uploaded files back as bytes,
+so a pulled directory re-pushes unchanged.
+
 A vibe's look (theme, style, layout, icon, title) does NOT live in its files, so
 `pull` + `push` copies the code and loses the look. `vibes-diy remix
 <handle>/<slug>` copies both; `push --from <handle>/<slug>` carries the look of
