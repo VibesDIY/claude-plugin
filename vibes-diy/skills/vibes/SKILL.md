@@ -115,6 +115,7 @@ before running commands you are unsure of.
 | Read / write app data                  | `db` subcommands                                   | references/data-and-secrets.md  |
 | Manage secrets                         | `secrets`                                          | references/data-and-secrets.md  |
 | Upload a binary asset                  | `put-asset`                                        | references/data-and-secrets.md  |
+| See what files a vibe carries          | `assets ls <vibe> [--published]`                   | references/command-reference.md |
 | Inspect codegen history                | `codegen-log`                                      | references/command-reference.md |
 | Write better prompts / themes / skills | —                                                  | references/prompt-craft.md      |
 | Anything failing                       | —                                                  | references/troubleshooting.md   |
