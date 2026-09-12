@@ -37,6 +37,7 @@ where <subcommand> can be one of:
 - publish - Make a vibe live: promote its latest draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
 - unpublish - Take a deployed vibe down (reversible). De-indexes the slug and blocks its public URL/remix/version listing; code, data, and grants are kept. Bring it back with `publish`.
 - versions - List every version of a vibe (fsId, mode, releaseSeq). Owner sees drafts; pull any with `pull --fsId`.
+- assets - The files a vibe carries — uploads rather than source (upload one with `put-asset`)
 - put-asset - Stream a file to the asset endpoint and print the resulting CID + URL.
 - skills - List available skills or show a skill's content.
 - themes - List available themes or show a theme's design markdown.
@@ -1068,6 +1069,40 @@ FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
   --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+## `vibes-diy assets`
+
+```text
+vibes-diy CLI assets <subcommand>
+> The files a vibe carries — uploads rather than source (upload one with `put-asset`)
+
+where <subcommand> can be one of:
+
+- ls - List the files a vibe carries: path, mime, size, and the safety verdict on each one.
+
+For more help, try running `vibes-diy CLI assets <subcommand> --help`
+```
+
+### `vibes-diy assets ls`
+
+```text
+vibes-diy CLI assets ls
+> List the files a vibe carries: path, mime, size, and the safety verdict on each one.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j  - selects json output format [optional]
+  --text, -t  - select text output format [default: true]
+  --published - List what the published (production) version carries instead of your latest draft [optional]
+  --help, -h  - show help [optional]
 
 ARGUMENTS:
   [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
