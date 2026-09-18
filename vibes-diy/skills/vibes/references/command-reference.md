@@ -855,7 +855,7 @@ OPTIONS:
   --user-slug <str>    - a string [default: ]
   --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
   --focus <str>        - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
-  --variety <str>      - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
+  --variety <str>      - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. A look that ships a design brief draws from a NARROWER pool — its excluded ids are listed in that look's dialect under prompts/pkg/themes/looks/<look>/variety.ts — and a pin naming one of them is refused rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
   --model <str>        - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
   --api-key <str>      - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
