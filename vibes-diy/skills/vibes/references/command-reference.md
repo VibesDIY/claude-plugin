@@ -41,6 +41,7 @@ where <subcommand> can be one of:
 - put-asset - Stream a file to the asset endpoint and print the resulting CID + URL.
 - skills - List available skills or show a skill's content.
 - themes - List available themes or show a theme's design markdown.
+- variety - List the layout archetypes and flourishes `generate --variety` can pin.
 - system - Emit the base system prompt to stdout.
 - user-settings - Ensure/refresh user settings for the logged-in device.
 
@@ -854,6 +855,7 @@ OPTIONS:
   --user-slug <str>    - a string [default: ]
   --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
   --focus <str>        - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
+  --variety <str>      - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
   --model <str>        - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
   --api-key <str>      - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
@@ -1179,6 +1181,21 @@ vibes-diy CLI themes
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --slug, -s <str>    - Theme slug to show content for (omit to list all) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+## `vibes-diy variety`
+
+```text
+vibes-diy CLI variety
+> List the layout archetypes and flourishes `generate --variety` can pin.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
 
 FLAGS:
   --json, -j - selects json output format [optional]
