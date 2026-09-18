@@ -44,7 +44,7 @@ for nothing.
 Keep going with this skill when there is no `vibes_*` tool available, or when
 the ask is specifically about the command line — running `vibes-diy` verbs,
 working in a local checkout, scripting a push, or anything the connector's
-tools do not cover (themes, skills, codegen logs, chips, asset uploads).
+tools do not cover (themes, variety, skills, codegen logs, chips, asset uploads).
 
 ## Preflight
 
@@ -152,7 +152,8 @@ For capability questions ("does vibes support X?"), trust sources in this
 order and stop at the first that answers:
 
 1. **The installed CLI** — `vibes-diy --help`, `vibes-diy skills`,
-   `vibes-diy themes`, `vibes-diy system`. It matches the deployed platform.
+   `vibes-diy themes`, `vibes-diy variety`, `vibes-diy system`. It matches the
+   deployed platform.
 2. **The bundled references** in `references/`.
 3. **The live docs** at https://good.vibes.diy.
 

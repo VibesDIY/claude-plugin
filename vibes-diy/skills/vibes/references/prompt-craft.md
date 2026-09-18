@@ -53,6 +53,24 @@ Better:
   vibes-diy generate "a workout log" --app-slug workout-log --theme <slug>
 ```
 
+### Pinning the variety — only for a comparison
+
+Every build is also given a **layout archetype** and three **flourishes**, drawn
+at random by the server so the catalog stays evenly measured. `vibes-diy variety`
+prints both lists, and `--variety "<archetype>:<a>,<b>,<c>"` holds them still:
+
+```
+vibes-diy variety                                    # the names, with what each one does
+vibes-diy generate "a workout log" --app-slug workout-log \
+  --variety "card-grid:accent-rule,caps-label,inset-divider"
+```
+
+Reach for it only when two builds are being COMPARED and the comparison would
+otherwise be partly about two random draws. For an ordinary app, omit it — the
+draw is what gives neighbouring apps different shapes, and pinning one is asking
+for a build that looks like the last one. A name that is not in the catalogs is
+refused before anything is built, with the valid names listed.
+
 ## Platform skills
 
 `vibes-diy skills` lists platform capabilities the generator can lean on —
