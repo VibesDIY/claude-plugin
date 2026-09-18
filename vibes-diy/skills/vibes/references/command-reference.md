@@ -16,7 +16,7 @@ vibes-diy CLI <subcommand>
 
 where <subcommand> can be one of:
 
-- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, and its gallery screenshot
+- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, and its gallery screenshot
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
 - claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
@@ -27,7 +27,7 @@ where <subcommand> can be one of:
 - retention - Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
-- generate - Generate a vibe from a text prompt, write it to disk, and push it live.
+- generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
 - login - Authenticate this device with vibes.diy cloud.
 - mcp - Start an MCP server for AI agent data access (stdio transport)
@@ -71,7 +71,7 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 
 ```text
 vibes-diy CLI app <subcommand>
-> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, and its gallery screenshot
+> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, and its gallery screenshot
 
 where <subcommand> can be one of:
 
@@ -81,6 +81,7 @@ where <subcommand> can be one of:
 - logs - Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
 - chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 - screenshot - Re-capture the gallery screenshot of one or more named vibes, through the platform's own capture path.
+- look - Read or change an existing vibe's look: its colour theme, and its layout archetype and flourishes
 
 For more help, try running `vibes-diy CLI app <subcommand> --help`
 ```
@@ -224,6 +225,63 @@ FLAGS:
 ARGUMENTS:
   [vibe]          - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
   [...more-vibes] - Additional handle/app-slug targets, each re-captured separately
+```
+
+### `vibes-diy app look`
+
+```text
+vibes-diy CLI app look <subcommand>
+> Read or change an existing vibe's look: its colour theme, and its layout archetype and flourishes
+
+where <subcommand> can be one of:
+
+- get - Show the vibe's theme, style and the layout archetype and flourishes it carries, with where they came from.
+- set - Change the vibe's theme and/or its layout archetype and flourishes. A theme is served immediately; a variety only arms the next build. Spends nothing unless --relayout is passed.
+
+For more help, try running `vibes-diy CLI app look <subcommand> --help`
+```
+
+#### `vibes-diy app look get`
+
+```text
+vibes-diy CLI app look get
+> Show the vibe's theme, style and the layout archetype and flourishes it carries, with where they came from.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+#### `vibes-diy app look set`
+
+```text
+vibes-diy CLI app look set
+> Change the vibe's theme and/or its layout archetype and flourishes. A theme is served immediately; a variety only arms the next build. Spends nothing unless --relayout is passed.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --theme <str>       - Colour theme slug (see `vibes-diy themes`). Served right away; an unknown slug is refused with the list. [default: ]
+  --variety <str>     - Layout archetype and flourishes as "archetype:a,b,c" (see `vibes-diy variety`), or "none" to remove both. Takes effect on the next build. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --relayout - Dispatch a build now that re-lays the app out onto its stored archetype and flourishes. This is the only thing here that spends credits. Allowed on its own, with no --variety: it re-lays out onto whatever is already stored. [optional]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
 ```
 
 ## `vibes-diy app-chats`
@@ -846,7 +904,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI generate
-> Generate a vibe from a text prompt, write it to disk, and push it live.
+> Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
 
 OPTIONS:
   --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -856,6 +914,8 @@ OPTIONS:
   --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
   --focus <str>        - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
   --variety <str>      - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. A look that ships a design brief draws from a NARROWER pool — its excluded ids are listed in that look's dialect under prompts/pkg/themes/looks/<look>/variety.ts — and a pin naming one of them is refused rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
+  --record <str>       - Write this run's raw transcript into this directory as <chatId>.wire.json: every wire event with its arrival time, and the messages you typed. A raw transcript for replaying what happened by hand; the eval runner's judged record is a separate tool. [optional]
+  --style <str>        - Pin this build's colour instead of letting the server draw it, as a palette slug (e.g. atelier, carbon, house). Only a LOOK draws a colour — its structure and ornament say nothing about hue — so this applies where a look is minted, and a slug outside that look's colourway set is refused with the eligible list rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
   --model <str>        - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
   --api-key <str>      - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
@@ -863,7 +923,7 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
-  --no-access-fn - For probes and testing: publish with NO access.js, so nothing governs what visitors do with the app's documents. Without it, a public push with no access.js is refused. Not for an app you intend people to use — write access.js yourself. [optional]
+  --no-access-fn - [Deprecated: no-op. A generated app publishes private-first, like the web; use `vibes-diy push --access open` to widen.] [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --help, -h     - show help [optional]
 
