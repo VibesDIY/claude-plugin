@@ -71,6 +71,20 @@ draw is what gives neighbouring apps different shapes, and pinning one is asking
 for a build that looks like the last one. A name that is not in the catalogs is
 refused before anything is built, with the valid names listed.
 
+### Changing the look of an app that already exists
+
+Don't regenerate an app to restyle it. `vibes-diy app look get <owner>/<slug>`
+prints its theme, style and current archetype + flourishes, and `app look set
+<owner>/<slug> [--theme <slug>] [--variety "<archetype>:<a>,<b>,<c>"]` changes
+them in place — the app keeps its URL, its data and its code. A theme is served,
+so colours change without a build; a variety only ARMS the next build, so the app
+keeps its current layout until the user's next edit restructures it (or until you
+pass `--relayout`, which dispatches that edit immediately and spends a turn —
+so ask first). Prefer this over `vibes-diy generate` for any "can it look
+different" request: regenerating mints a new app and abandons the old one's data
+and public URL, which is almost never what the user meant. Reach for `edit`
+instead when the ask is about specific markup rather than the app's overall look.
+
 ## Platform skills
 
 `vibes-diy skills` lists platform capabilities the generator can lean on —
@@ -119,3 +133,26 @@ The two ways through are write an `access.js` (`vibes-diy edit` will, if you
 ask it to), or pass `--no-access-fn` to publish with nothing governing
 visitors. The CLI no longer generates the rules for you mid-push — that was a
 special server turn and it is gone.
+
+**That refusal is a `push` refusal only.** `generate` no longer pushes
+anything: it opens a chat on the same lane as a first prompt on the web, the
+server names and builds the app, and that build is released **live and
+private** — reachable by you, exactly as a web first build is. So a first
+build never hits the no-`access.js` refusal, and `--no-access-fn` on
+`generate` is a deprecated no-op. To open it up afterwards, either
+`vibes-diy push --access open` from the directory (with an `access.js`) or
+the Share sheet on the app's page — the same two doors the web has.
+
+## `generate` stays in the conversation
+
+`generate` follows the chat it opened. It prints the agent's own evidence
+lines — the same words the web chat shows — and re-materializes the files
+when the agent runs a second build (adding `access.js`, for instance), so
+the directory ends up holding what the app actually serves. In a terminal it
+then drops into a prompt loop: type a follow-up to ride the same chat,
+`/exit` or Ctrl-D to leave. Under `--json`, or when driven from MCP, there is
+no loop — it reads until the agent goes idle and returns.
+
+Add `--record <dir>` to keep a raw wire transcript of the run (the deduped
+events plus your own messages). It is a debugging artifact, not the eval
+harness's judged record.

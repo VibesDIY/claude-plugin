@@ -79,7 +79,11 @@ Most invocations are generate-then-iterate. Do this inline:
    `vibes-diy generate "<prompt>" --app-slug <descriptive-slug> --handle <handle>`
    Choose a slug that reads like the app ("team-standup", not "app1").
 3. **Trust the exit code.** The CLI's exit status is ground truth, not the log
-   chatter. On success it prints the live URL — hand that to the user.
+   chatter. On success it prints the live URL — hand that to the user. The app
+   is live and **private**, released by the server exactly as a first prompt on
+   the web is; `vibes-diy push --access open` or the Share sheet opens it up.
+   `generate` follows its chat and returns when the agent goes idle — it only
+   waits for typed follow-ups on a real terminal, never from a tool call.
 4. **Iterate.**
    `vibes-diy edit <handle>/<slug> "<follow-up>"` for changes. One follow-up
    job per edit, same as generate.

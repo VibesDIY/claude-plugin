@@ -149,7 +149,9 @@ sign-in-gated app use `--access gated` (anyone views, members write); for a
 private one `--access private`, and tell the user what changes — visitors then
 need access instead of just the link. Going `open`/`gated` from a directory
 with no `access.js` refuses the push — write those rules first, or pass
-`--no-access-fn` to publish ungoverned.
+`--no-access-fn` to publish ungoverned. (That refusal belongs to `push`.
+`generate` pushes nothing: its build is released live and private by the
+server, like a first prompt on the web.)
 
 ## Step 5 — Handoff
 
