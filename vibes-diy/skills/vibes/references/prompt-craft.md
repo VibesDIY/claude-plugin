@@ -134,14 +134,17 @@ ask it to), or pass `--no-access-fn` to publish with nothing governing
 visitors. The CLI no longer generates the rules for you mid-push — that was a
 special server turn and it is gone.
 
-**That refusal is a `push` refusal only.** `generate` no longer pushes
-anything: it opens a chat on the same lane as a first prompt on the web, the
-server names and builds the app, and that build is released **live and
-private** — reachable by you, exactly as a web first build is. So a first
-build never hits the no-`access.js` refusal, and `--no-access-fn` on
-`generate` is a deprecated no-op. To open it up afterwards, either
-`vibes-diy push --access open` from the directory (with an `access.js`) or
-the Share sheet on the app's page — the same two doors the web has.
+**`generate` publishes too, and its no-`access.js` case fails closed rather
+than refusing.** It opens a chat on the same lane as a first prompt on the
+web, the server names and builds the app and releases it private, and then
+`generate` runs the same publish a `push` does — letting the server choose
+`open` or `gated` from how sensitive the app is. A first build carries no
+`access.js` by design, so that publish is refused and the run says so and
+leaves the app on its private release: add an `access.js` and `push`, or pass
+`--no-access-fn` to open it anyway. `generate --private` skips the publish
+entirely. To open a private app afterwards, either `vibes-diy push --access
+open` from the directory (with an `access.js`) or the Share sheet on the app's
+page — the same two doors the web has.
 
 ## `generate` stays in the conversation
 

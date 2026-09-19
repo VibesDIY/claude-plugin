@@ -80,8 +80,10 @@ Most invocations are generate-then-iterate. Do this inline:
    Choose a slug that reads like the app ("team-standup", not "app1").
 3. **Trust the exit code.** The CLI's exit status is ground truth, not the log
    chatter. On success it prints the live URL — hand that to the user. The app
-   is live and **private**, released by the server exactly as a first prompt on
-   the web is; `vibes-diy push --access open` or the Share sheet opens it up.
+   is live and **published** — reachable by anyone, or gated when the build
+   judged it privacy-sensitive — with its own `access.js` governing what
+   visitors may do with its documents; a build that has no `access.js` yet
+   stays private with a note, and `--private` keeps any app private.
    `generate` follows its chat and returns when the agent goes idle — it only
    waits for typed follow-ups on a real terminal, never from a tool call.
 4. **Iterate.**
