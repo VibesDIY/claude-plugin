@@ -923,7 +923,8 @@ FLAGS:
   --json, -j     - selects json output format [optional]
   --text, -t     - select text output format [default: true]
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
-  --no-access-fn - [Deprecated: no-op. A generated app publishes private-first, like the web; use `vibes-diy push --access open` to widen.] [optional]
+  --no-access-fn - Publish even though the app has no access.js. Without it such a build stays private with a note — nothing would govern what visitors do with its documents. [optional]
+  --private      - Publish this app private: reachable only by you and people you approve, whether or not it existed before. Without it a generated app is published like a website publish — open, or gated when the app is privacy-sensitive — and an app with no access.js stays private with a note. [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --help, -h     - show help [optional]
 
