@@ -78,12 +78,15 @@ one menu; take the answers and convert. Do not present a second menu.
 
 Ground the menu in platform truth (verified live, 2026-07-13):
 
-- **Anonymous submissions are device-local.** A signed-out visitor's writes
-  save on their device only ("Saved on this device — sign in to sync") and
-  reach the shared database when they later sign in. Signed-out visitors DO
-  see shared data live. If the user wants drive-by anonymous posting into
-  the shared feed, say plainly that the shared feed fills from signed-in
-  users; anonymous visitors keep a private device-local copy until sign-in.
+- **Anonymous submissions are device-local by default.** A signed-out
+  visitor's writes save on their device only ("Saved on this device — sign in
+  to sync") and reach the shared database when they later sign in. Signed-out
+  visitors DO see shared data live. If the user wants drive-by anonymous
+  posting into the shared feed (a guestbook), it takes two things: an
+  `access.js` whose rule returns `allowAnonymous: true` for that document, and
+  the owner turning the app's anonymous-write setting on after the push with
+  `vibes-diy app anon-write <handle>/<app> on` (`off` revokes; no argument
+  reads). `push` never changes that setting. Ask the owner before turning it on.
 - **"Private" means view-scoping, not secrecy.** The default deploy is
   world-readable (data is also readable through the db API); filtering by
   `authorHandle` scopes what each visitor's UI shows but is not access
