@@ -16,7 +16,7 @@ vibes-diy CLI <subcommand>
 
 where <subcommand> can be one of:
 
-- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, and its gallery screenshot
+- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, and whether signed-out visitors can write
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
 - claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
@@ -71,7 +71,7 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 
 ```text
 vibes-diy CLI app <subcommand>
-> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, and its gallery screenshot
+> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, and whether signed-out visitors can write
 
 where <subcommand> can be one of:
 
@@ -82,6 +82,7 @@ where <subcommand> can be one of:
 - chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 - screenshot - Re-capture the gallery screenshot of one or more named vibes, through the platform's own capture path.
 - look - Read or change an existing vibe's look: its colour theme, and its layout archetype and flourishes
+- anon-write - Read or set whether signed-out visitors' writes reach the server (owner, or a developer they delegated). `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
 
 For more help, try running `vibes-diy CLI app <subcommand> --help`
 ```
@@ -282,6 +283,27 @@ FLAGS:
 
 ARGUMENTS:
   [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+### `vibes-diy app anon-write`
+
+```text
+vibes-diy CLI app anon-write
+> Read or set whether signed-out visitors' writes reach the server (owner, or a developer they delegated). `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe]   - App slug or handle/app-slug (e.g. jchris/guestbook) [optional]
+  [on|off] - on = admit anonymous writes, off = revoke. Omit to read. [optional]
 ```
 
 ## `vibes-diy app-chats`
