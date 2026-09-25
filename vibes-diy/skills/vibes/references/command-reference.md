@@ -898,14 +898,15 @@ vibes-diy CLI edit
 > Send a follow-up prompt to an existing vibe, write files to disk, and push live.
 
 OPTIONS:
-  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
-  --user-slug <str>   - a string [default: ]
-  --dir <str>         - Directory to write resolved files and push from (defaults to cwd) [default: ]
-  --focus <str>       - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
-  --model <str>       - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
-  --api-key <str>     - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
+  --api-url, -u <str>   - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>          - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>        - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --user-slug <str>     - a string [default: ]
+  --dir <str>           - Directory to write resolved files and push from (defaults to cwd) [default: ]
+  --focus <str>         - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
+  --model <str>         - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
+  --builder-model <str> - Pin ONLY the builds the agent dispatches to this codegen model (e.g. anthropic/claude-sonnet-4.6), leaving the agent itself on the account default. --model pins the agent turn AND every build it starts; give both to pin each separately. An unknown or non-codegen id is refused by the server on the send. Not persisted. [optional]
+  --api-key <str>       - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
 FLAGS:
   --json, -j     - selects json output format [optional]
@@ -929,17 +930,18 @@ vibes-diy CLI generate
 > Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
 
 OPTIONS:
-  --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --app-slug, -a <str> - App slug (server generates one if omitted) [default: ]
-  --handle <str>       - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
-  --user-slug <str>    - a string [default: ]
-  --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
-  --focus <str>        - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
-  --variety <str>      - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. A look that ships a design brief draws from a NARROWER pool — its excluded ids are listed in that look's dialect under prompts/pkg/themes/looks/<look>/variety.ts — and a pin naming one of them is refused rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
-  --record <str>       - Write this run's raw transcript into this directory as <chatId>.wire.json: every wire event with its arrival time, and the messages you typed. A raw transcript for replaying what happened by hand; the eval runner's judged record is a separate tool. [optional]
-  --style <str>        - Pin this build's colour instead of letting the server draw it, as a palette slug (e.g. atelier, carbon, house). Only a LOOK draws a colour — its structure and ornament say nothing about hue — so this applies where a look is minted, and a slug outside that look's colourway set is refused with the eligible list rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
-  --model <str>        - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
-  --api-key <str>      - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
+  --api-url, -u <str>   - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --app-slug, -a <str>  - App slug (server generates one if omitted) [default: ]
+  --handle <str>        - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --user-slug <str>     - a string [default: ]
+  --vibe <str>          - Vibe identifier as handle/app-slug [default: ]
+  --focus <str>         - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
+  --variety <str>       - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. A look that ships a design brief draws from a NARROWER pool — its excluded ids are listed in that look's dialect under prompts/pkg/themes/looks/<look>/variety.ts — and a pin naming one of them is refused rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
+  --record <str>        - Write this run's raw transcript into this directory as <chatId>.wire.json: every wire event with its arrival time, and the messages you typed. A raw transcript for replaying what happened by hand; the eval runner's judged record is a separate tool. [optional]
+  --style <str>         - Pin this build's colour instead of letting the server draw it, as a palette slug (e.g. atelier, carbon, house). Only a LOOK draws a colour — its structure and ornament say nothing about hue — so this applies where a look is minted, and a slug outside that look's colourway set is refused with the eligible list rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
+  --model <str>         - Ephemeral model override for this run (e.g. qwen/qwen3-coder-480b-a35b-instruct); not persisted [optional]
+  --builder-model <str> - Pin ONLY the builds the agent dispatches to this codegen model (e.g. anthropic/claude-sonnet-4.6), leaving the agent itself on the account default. --model pins the agent turn AND every build it starts; give both to pin each separately. An unknown or non-codegen id is refused by the server at the open. Not persisted. [optional]
+  --api-key <str>       - Per-call BYOK provider key for this run (overrides any stored key, bills your own key); defaults to env VIBES_LLM_API_KEY. Not persisted. [optional]
 
 FLAGS:
   --json, -j     - selects json output format [optional]
