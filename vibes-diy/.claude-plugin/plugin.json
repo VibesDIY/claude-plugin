@@ -2,7 +2,7 @@
   "name": "vibes-diy",
   "displayName": "Vibes DIY",
   "description": "One prompt to a deployed, shareable React mini-app — hosting, database, multi-user sync, and in-app AI included.",
-  "version": "0.1.339",
+  "version": "0.1.340",
   "author": {
     "name": "VibesDIY",
     "email": "marcus@vibes.diy"
@@ -10,7 +10,7 @@
   "homepage": "https://vibes.diy",
   "repository": "https://github.com/VibesDIY/claude-plugin",
   "metadata": {
-    "generatedFrom": "46a72912c2bcb5bd10683c81d417f9f0e25a5a41",
-    "cliVersion": "14.3.43"
+    "generatedFrom": "a0362f638fc1b92d18a4a1c8e6a9d6d8a2074869",
+    "cliVersion": "14.3.44"
   }
 }
