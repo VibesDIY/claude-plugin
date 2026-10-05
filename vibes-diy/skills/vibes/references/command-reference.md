@@ -204,7 +204,7 @@ FLAGS:
 
 ARGUMENTS:
   [vibe]    - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
-  [...chip] - The chip labels, in order. More than 3 are trimmed to the first 3.
+  [...chip] - The chip labels, in order. More than 3 are trimmed to the first 3. A gold chip is JSON: '{"label":"Let a friend in","gold":true,"kind":"access"}'.
 ```
 
 ### `vibes-diy app screenshot`
@@ -413,6 +413,7 @@ where <subcommand> can be one of:
 - del - Delete a document by ID
 - query - Query documents by field value with optional key/prefix/range/limit filters
 - subscribe - Tail real-time doc-changed events for a database (Ctrl+C to exit). Reconnects mid-stream; events that fire during the gap are not backfilled.
+- seed - Add or remove the sample data a vibe's live version ships in its seed.json (owner only)
 
 For more help, try running `vibes-diy CLI db <subcommand> --help`
 ```
@@ -560,6 +561,60 @@ FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
   --help, -h - show help [optional]
+```
+
+### `vibes-diy db seed`
+
+```text
+vibes-diy CLI db seed <subcommand>
+> Add or remove the sample data a vibe's live version ships in its seed.json (owner only)
+
+where <subcommand> can be one of:
+
+- add - Add the live version's seed.json sample records to the vibe's databases. Records already there, including ones you edited, stay as they are.
+- remove - Remove the live version's seed.json sample records and keep them out until you add sample data again. Records you added yourself stay.
+
+For more help, try running `vibes-diy CLI db seed <subcommand> --help`
+```
+
+#### `vibes-diy db seed add`
+
+```text
+vibes-diy CLI db seed add
+> Add the live version's seed.json sample records to the vibe's databases. Records already there, including ones you edited, stay as they are.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+```
+
+#### `vibes-diy db seed remove`
+
+```text
+vibes-diy CLI db seed remove
+> Remove the live version's seed.json sample records and keep them out until you add sample data again. Records you added yourself stay.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
 ```
 
 ## `vibes-diy secrets`
@@ -1004,12 +1059,15 @@ FLAGS:
   --help, -h - show help [optional]
 ## MCP Server Setup
 
-Tools: vibes_list_apps, vibes_list_databases, vibes_get, vibes_put, vibes_delete, vibes_query, vibes_generate
+Tools: vibes_list_apps, vibes_list_databases, vibes_get, vibes_put, vibes_delete, vibes_query, vibes_generate, vibes_add_seed_data, vibes_remove_seed_data
 
 `vibes_generate` builds a brand-new vibe from a text prompt and deploys it live —
 it takes minutes and spends your AI credits. The new app is separate from the
 `--app-slug` this server was started with; the data tools keep pointing at that
 one.
+
+`vibes_add_seed_data` adds the live version's sample data (its `seed.json`) to the
+app's databases, keeping your edits; `vibes_remove_seed_data` takes it out again.
 
 Requires: npx vibes-diy login (one time)
 
