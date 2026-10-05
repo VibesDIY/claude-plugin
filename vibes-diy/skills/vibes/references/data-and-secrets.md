@@ -24,6 +24,11 @@ worse, silently resolves to a different live app's database.
 - Query by index: `vibes-diy db query <field> --key <value> --vibe <handle>/<slug>`
   (also `--prefix`, `--range`, `--limit`, `--descending`)
 - Watch a live stream of changes: `vibes-diy db subscribe --vibe <handle>/<slug>`
+- Add the sample records the live version ships in its `seed.json` (owner
+  only; records already there, including edited ones, stay as they are):
+  `vibes-diy db seed add <handle>/<slug>`
+- Remove those sample records and keep them out until added again:
+  `vibes-diy db seed remove <handle>/<slug>`
 
 ## Secrets
 
@@ -81,5 +86,5 @@ asking for permission on every call. Add this to `settings.json`:
 }
 ```
 
-Do not add write commands (`db put`, `db del`, `secrets set`, `push`,
+Do not add write commands (`db put`, `db del`, `db seed`, `secrets set`, `push`,
 `publish`) to this allowlist — those should stay confirmable.
