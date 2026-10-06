@@ -36,7 +36,7 @@ Secrets are owner-only, write-only values. You can set them but never read
 them back through the CLI — the running vibe's `backend.js` reads them via
 `ctx.secrets` at request time.
 
-- Set a secret (value from an argument or stdin): `vibes-diy secrets set <name>`
+- Set a secret (value from an argument, a hidden prompt on a terminal, or stdin): `vibes-diy secrets set <name>`
 - List secret names (not values): `vibes-diy secrets ls`
 - Remove a secret: `vibes-diy secrets rm <name>`
 
