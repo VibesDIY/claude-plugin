@@ -625,7 +625,7 @@ vibes-diy CLI secrets <subcommand>
 
 where <subcommand> can be one of:
 
-- set - Set or rotate a secret. Value from the arg, or stdin when omitted.
+- set - Set or rotate a secret. Value from the arg; when omitted, a hidden prompt on a terminal, else stdin.
 - ls - List secret keys (metadata only — values never come back)
 - rm - Remove a secret
 
@@ -636,7 +636,7 @@ For more help, try running `vibes-diy CLI secrets <subcommand> --help`
 
 ```text
 vibes-diy CLI secrets set
-> Set or rotate a secret. Value from the arg, or stdin when omitted.
+> Set or rotate a secret. Value from the arg; when omitted, a hidden prompt on a terminal, else stdin.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
