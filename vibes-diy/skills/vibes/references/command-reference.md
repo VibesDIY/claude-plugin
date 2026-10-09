@@ -34,7 +34,7 @@ where <subcommand> can be one of:
 - pull - Download source files of a deployed vibe to disk.
 - push - Upload files from the current directory to a vibe.
 - remix - Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands you on the live URL (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
-- publish - Make a vibe live: promote its latest draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
+- publish - Make a vibe live: promote its latest dev draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
 - unpublish - Take a deployed vibe down (reversible). De-indexes the slug and blocks its public URL/remix/version listing; code, data, and grants are kept. Bring it back with `publish`.
 - versions - List every version of a vibe (fsId, mode, releaseSeq). Owner sees drafts; pull any with `pull --fsId`.
 - assets - The files a vibe carries — uploads rather than source (upload one with `put-asset`)
@@ -1124,8 +1124,8 @@ OPTIONS:
 FLAGS:
   --json, -j  - selects json output format [optional]
   --text, -t  - select text output format [default: true]
-  --published - Pull the published (production) version instead of your latest draft [optional]
-  --draft     - Pull the owner's latest unreleased draft. Already the default for your own vibes; on a platform-admin pull of someone else's vibe this is the explicit, separately audited opt-in to their unreleased work (a bare pull serves the published release) [optional]
+  --published - Pull the published (production) version instead of your latest dev draft [optional]
+  --draft     - Pull the owner's latest dev draft (unreleased). Already the default for your own vibes; on a platform-admin pull of someone else's vibe this is the explicit, separately audited opt-in to their unreleased work (a bare pull serves the published release) [optional]
   --help, -h  - show help [optional]
 
 ARGUMENTS:
@@ -1184,13 +1184,13 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI publish
-> Make a vibe live: promote its latest draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
+> Make a vibe live: promote its latest dev draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
   --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
-  --fsId <str>        - Publish a specific version (fsId from `vibes-diy versions`) instead of the latest draft. [default: ]
+  --fsId <str>        - Publish a specific version (fsId from `vibes-diy versions`) instead of the latest dev draft. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1268,7 +1268,7 @@ OPTIONS:
 FLAGS:
   --json, -j  - selects json output format [optional]
   --text, -t  - select text output format [default: true]
-  --published - List what the published (production) version carries instead of your latest draft [optional]
+  --published - List what the published (production) version carries instead of your latest dev draft [optional]
   --help, -h  - show help [optional]
 
 ARGUMENTS:
