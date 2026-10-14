@@ -409,7 +409,7 @@ where <subcommand> can be one of:
 
 - list - List database names for an app
 - get - Get a document by ID
-- put - Put (create or update) a document. Pass JSON on argv or '-' to read from stdin.
+- put - Put (create or update) a document. Pass JSON on argv or '-' to read from stdin. --file attaches local files as _files entries.
 - del - Delete a document by ID
 - query - Query documents by field value with optional key/prefix/range/limit filters
 - subscribe - Tail real-time doc-changed events for a database (Ctrl+C to exit). Reconnects mid-stream; events that fire during the gap are not backfilled.
@@ -468,7 +468,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI db put
-> Put (create or update) a document. Pass JSON on argv or '-' to read from stdin.
+> Put (create or update) a document. Pass JSON on argv or '-' to read from stdin. --file attaches local files as _files entries.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -478,6 +478,8 @@ OPTIONS:
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID (_id); falls back to the body _id, else generated [default: ]
+  --file <str>        - Attach a file (or every file a glob matches) as _files.<basename> on the doc; repeatable. Unchanged files are kept, not re-uploaded. Works for any member who can write the vibe [default: ]
+  --files <str>       - Same as --file [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
