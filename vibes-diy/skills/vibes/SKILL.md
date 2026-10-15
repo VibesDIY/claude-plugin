@@ -78,6 +78,8 @@ Most invocations are generate-then-iterate. Do this inline:
 2. **Generate.**
    `vibes-diy generate "<prompt>" --app-slug <descriptive-slug> --handle <handle>`
    Choose a slug that reads like the app ("team-standup", not "app1").
+   Add `--lightning` to build it with our fastest builder first (the default
+   is the careful build).
 3. **Trust the exit code.** The CLI's exit status is ground truth, not the log
    chatter. On success it prints the live URL — hand that to the user. The app
    is live and **published** — reachable by anyone, or gated when the build
