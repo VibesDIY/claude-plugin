@@ -1006,6 +1006,8 @@ FLAGS:
   --instant-join - [Deprecated: no-op. Auto-accept editor is now always enabled by default.] [optional]
   --no-access-fn - Publish even though the app has no access.js. Without it such a build stays private with a note — nothing would govern what visitors do with its documents. [optional]
   --private      - Publish this app private: reachable only by you and people you approve, whether or not it existed before. Without it a generated app is published like a website publish — open, or gated when the app is privacy-sensitive — and an app with no access.js stays private with a note. [optional]
+  --lightning    - Build this new app with our fastest builder first (the Lightning build) instead of the careful default. Same as turning on Instant builds in Settings, for this one app. Follow-ups use the ordinary builder. [optional]
+  --fast-pass    - Same as --lightning. [optional]
   --verbose, -v  - Stream AI response to stderr as it arrives [optional]
   --help, -h     - show help [optional]
 
