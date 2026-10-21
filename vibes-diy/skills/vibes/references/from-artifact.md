@@ -138,7 +138,7 @@ Pick a descriptive slug (reads like the app, e.g. `team-feedback`, not
 `app1`) and push:
 
 ```bash
-vibes-diy push -m "From artifact: <artifact title> — <one-line description>"
+vibes-diy push --vibe <handle>/<slug> -m "From artifact: <artifact title> — <one-line description>"
 ```
 
 The literal `From artifact: ` prefix is the provenance marker — keep the

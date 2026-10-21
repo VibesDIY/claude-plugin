@@ -116,7 +116,7 @@ before running commands you are unsure of.
 | User intent                            | Command                                            | Reference                       |
 | -------------------------------------- | -------------------------------------------------- | ------------------------------- |
 | Change a deployed vibe's code          | `vibes-diy pull` → edit locally → `vibes-diy push` | command-reference.md            |
-| Copy a vibe into your account          | `remix <handle>/<slug> [--to …]`                   | references/command-reference.md |
+| Copy a vibe into your account          | `remix <handle>/<slug> --to <handle>/<slug>`       | references/command-reference.md |
 | Promote / retract a vibe               | `publish` / `unpublish`                            | references/command-reference.md |
 | See what exists                        | `list`, `versions`                                 | references/command-reference.md |
 | Change the chips visitors see          | `app chips <vibe> "…" "…"`                         | references/command-reference.md |

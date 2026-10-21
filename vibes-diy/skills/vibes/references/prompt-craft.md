@@ -20,8 +20,8 @@ Bad (one prompt, three jobs, 24+ words trying to do too much):
 
 Better (generate + follow-up edits, one job each):
   vibes-diy generate "a recipe app with a weekly meal planner" --app-slug meal-planner --handle jane
-  vibes-diy edit meal-planner "add a shopping list generated from the week's recipes"
-  vibes-diy edit meal-planner "let a signed-in user rate a recipe 1-5 stars"
+  vibes-diy edit jane/meal-planner "add a shopping list generated from the week's recipes"
+  vibes-diy edit jane/meal-planner "let a signed-in user rate a recipe 1-5 stars"
 ```
 
 ## Slug hygiene
@@ -50,7 +50,7 @@ Bad:  "make it use a dark navy background with rounded cards and a subtle
 Better:
   vibes-diy themes            # list available themes
   vibes-diy themes <slug>     # inspect one before applying it
-  vibes-diy generate "a workout log" --app-slug workout-log --theme <slug>
+  vibes-diy generate "a workout log" --app-slug workout-log --handle jane --theme <slug>
 ```
 
 ### Pinning the variety — only for a comparison
@@ -61,7 +61,7 @@ prints both lists, and `--variety "<archetype>:<a>,<b>,<c>"` holds them still:
 
 ```
 vibes-diy variety                                    # the names, with what each one does
-vibes-diy generate "a workout log" --app-slug workout-log \
+vibes-diy generate "a workout log" --app-slug workout-log --handle jane \
   --variety "card-grid:accent-rule,caps-label,inset-divider"
 ```
 
@@ -102,20 +102,20 @@ Good: "add sign-in" (let vibes-diy skills auth do the wiring)
 
 ## Iterating: edit vs. regenerate
 
-Prefer `vibes-diy edit <vibe> "<one change>"` over regenerating from scratch.
+Prefer `vibes-diy edit <handle>/<slug> "<one change>"` over regenerating from scratch.
 Edits preserve the app's existing data and its public URL; a fresh
 `vibes-diy generate` does not. Use `--focus <path>` to point an edit at one
 file when the app has grown past a single component:
 
 ```
-vibes-diy edit team-standup-board "add a due-date field to each task" --focus TaskList.jsx
+vibes-diy edit jane/team-standup-board "add a due-date field to each task" --focus TaskList.jsx
 ```
 
 Before spending a real turn, preview the exact request with `--dry-run`
 (add `--transcript` for a human-readable rendering instead of raw JSON):
 
 ```
-vibes-diy edit team-standup-board "add a due-date field to each task" --dry-run --transcript
+vibes-diy edit jane/team-standup-board "add a due-date field to each task" --dry-run --transcript
 ```
 
 ## Multi-user by default

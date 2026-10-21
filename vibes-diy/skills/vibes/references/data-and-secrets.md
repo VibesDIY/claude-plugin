@@ -45,7 +45,7 @@ them back through the CLI — the running vibe's `backend.js` reads them via
 Upload a binary asset (image, file) and get back a content-addressed URL:
 
 ```
-vibes-diy put-asset --file <path> [--content-type <type>] [--verify]
+vibes-diy put-asset --file <path> --vibe <handle>/<slug> [--content-type <type>] [--verify]
 ```
 
 This prints the asset's CID and its URL, ready to reference from the vibe's
@@ -53,13 +53,13 @@ code.
 
 ## MCP (optional, power users)
 
-`vibes-diy mcp --app-slug <slug>` runs a stdio MCP server that exposes the
+`vibes-diy mcp --app-slug <slug> --handle <handle>` runs a stdio MCP server that exposes the
 same data operations above (db, secrets, assets) as typed tools instead of
 CLI subcommands. The plugin does not auto-register this server — nothing in
 this skill wires it up for you. If a user wants it, register it manually:
 
 ```
-claude mcp add vibes-diy -- vibes-diy mcp --app-slug <slug>
+claude mcp add vibes-diy -- vibes-diy mcp --app-slug <slug> --handle <handle>
 ```
 
 The Bash commands in this file are equally capable, so treat MCP as a
