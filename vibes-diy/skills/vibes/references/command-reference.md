@@ -19,7 +19,7 @@ where <subcommand> can be one of:
 - app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, and whether signed-out visitors can write
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
-- claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
+- claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it. Scripts and agents pass --no-default so the account default stays put, then name handle/app-slug on every later call.
 - codegen-log - Inspect a vibe's codegen build transcript (the builder↔LLM conversation that generated its source). List chats, or show one chat's prompts / reconstructed model output.
 - db - Read and write Fireproof documents
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
@@ -52,16 +52,17 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 
 1. Run `npx vibes-diy system` to get the coding rules
 2. Write `App.jsx` following the rules above
-3. Run `npx vibes-diy push` to deploy — prints a live HTTPS URL
+3. Run `npx vibes-diy push --vibe <handle>/<app-slug>` to deploy — prints the handle/app-slug it used and a live HTTPS URL
 4. Edit and push again to iterate
 
 ### Other Commands
 
-- `npx vibes-diy push --access gated` — deploy so anyone can view but only members write (`open` is the default, `private` is members-only)
-- `npx vibes-diy push --access private` — deploy for you and the members you invite, and nobody else
-- `npx vibes-diy push --app-slug other-name` — deploy to a different app slug instead of the directory name
-- `npx vibes-diy unpublish <vibe>` — take a deployed vibe down (reversible; code and data are kept)
-- `npx vibes-diy publish <vibe>` — make it live again, or promote a `--mode dev` draft to production
+- Name the app as `handle/app-slug` on every command (a bare slug falls back to your default handle — fine at a terminal, never in a script or agent)
+- `npx vibes-diy push --vibe <handle>/<app-slug> --access gated` — deploy so anyone can view but only members write (`open` is the default, `private` is members-only)
+- `npx vibes-diy push --vibe <handle>/<app-slug> --access private` — deploy for you and the members you invite, and nobody else
+- `npx vibes-diy push --handle <handle> --app-slug other-name` — deploy to a different app slug instead of the directory name
+- `npx vibes-diy unpublish <handle>/<app-slug>` — take a deployed vibe down (reversible; code and data are kept)
+- `npx vibes-diy publish <handle>/<app-slug>` — make it live again, or promote a `--mode dev` draft to production
 - `npx vibes-diy login` — authenticate this device (run once before first push)
 - `npx vibes-diy mcp --help` — start an MCP server for AI agent data access (Claude Desktop / Cowork)
 - `npx vibes-diy help` — show all available commands
@@ -95,8 +96,8 @@ vibes-diy CLI app status
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -104,7 +105,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ### `vibes-diy app rearm`
@@ -115,8 +116,8 @@ vibes-diy CLI app rearm
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -124,7 +125,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ### `vibes-diy app schedule`
@@ -148,8 +149,8 @@ vibes-diy CLI app schedule off
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -157,7 +158,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ### `vibes-diy app logs`
@@ -168,8 +169,8 @@ vibes-diy CLI app logs
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --since <str>       - How far back to read: a duration (30m, 2h, 1d, 1w) or an ISO timestamp. Default 1h. [default: 1h]
   --level <str>       - Only this level: debug, info, warn or error [default: ]
   --limit <number>    - Maximum events per read (max 500) [default: 100]
@@ -181,7 +182,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ### `vibes-diy app chips`
@@ -192,8 +193,8 @@ vibes-diy CLI app chips
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --fs-id <str>       - Stamp this published version instead of the live release [default: ]
 
 FLAGS:
@@ -203,7 +204,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe]    - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe]    - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
   [...chip] - The chip labels, in order. More than 3 are trimmed to the first 3. A gold chip is JSON: '{"label":"Let a friend in","gold":true,"kind":"access"}'.
 ```
 
@@ -215,8 +216,8 @@ vibes-diy CLI app screenshot
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -224,7 +225,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe]          - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe]          - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
   [...more-vibes] - Additional handle/app-slug targets, each re-captured separately
 ```
 
@@ -250,8 +251,8 @@ vibes-diy CLI app look get
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -259,7 +260,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 #### `vibes-diy app look set`
@@ -270,8 +271,8 @@ vibes-diy CLI app look set
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --theme <str>       - Colour theme slug (see `vibes-diy themes`). Served right away; an unknown slug is refused with the list. [default: ]
   --variety <str>     - Layout archetype and flourishes as "archetype:a,b,c" (see `vibes-diy variety`), or "none" to remove both. Takes effect on the next build. [default: ]
 
@@ -282,7 +283,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ### `vibes-diy app anon-write`
@@ -293,8 +294,8 @@ vibes-diy CLI app anon-write
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -302,7 +303,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe]   - App slug or handle/app-slug (e.g. jchris/guestbook) [optional]
+  [vibe]   - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
   [on|off] - on = admit anonymous writes, off = revoke. Omit to read. [optional]
 ```
 
@@ -314,8 +315,8 @@ vibes-diy CLI app-chats
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -323,7 +324,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe]   - App slug or handle/app-slug [optional]
+  [vibe]   - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
   [chatId] - Chat ID to read (omit to list all runtime chats) [optional]
 ```
 
@@ -358,15 +359,16 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI claim-handle
-> Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it.
+> Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it. Scripts and agents pass --no-default so the account default stays put, then name handle/app-slug on every later call.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
 
 FLAGS:
-  --json, -j - selects json output format [optional]
-  --text, -t - select text output format [default: true]
-  --help, -h - show help [optional]
+  --json, -j   - selects json output format [optional]
+  --text, -t   - select text output format [default: true]
+  --no-default - Claim the handle but leave your default handle unchanged. For scripts and agents: mint a qa-<job>-<yyyymm> handle without switching the account, then pass handle/app-slug on every call. [optional]
+  --help, -h   - show help [optional]
 
 ARGUMENTS:
   [name] - The handle to claim. Omit to list suggestions instead of claiming. [optional]
@@ -380,8 +382,8 @@ vibes-diy CLI codegen-log
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --turn <str>        - With --response: select a specific turn by promptId (default: newest) [optional]
 
 FLAGS:
@@ -395,7 +397,7 @@ FLAGS:
   --help, -h     - show help [optional]
 
 ARGUMENTS:
-  [vibe]   - App slug or handle/app-slug [optional]
+  [vibe]   - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
   [chatId] - Chat ID to show prompt history for (omit to list all codegen chats) [optional]
 ```
 
@@ -426,9 +428,9 @@ vibes-diy CLI db list
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
@@ -447,9 +449,9 @@ vibes-diy CLI db get
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
@@ -472,9 +474,9 @@ vibes-diy CLI db put
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID (_id); falls back to the body _id, else generated [default: ]
@@ -499,9 +501,9 @@ vibes-diy CLI db del
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --id <str>          - Document ID — same as positional, kept for symmetry with `db put --id` [default: ]
@@ -524,9 +526,9 @@ vibes-diy CLI db query
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
   --key <str>         - Exact key match (JSON value) [default: ]
@@ -553,9 +555,9 @@ vibes-diy CLI db subscribe
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
   --db <str>          - Database name [default: default]
 
@@ -587,8 +589,8 @@ vibes-diy CLI db seed add
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -596,7 +598,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 #### `vibes-diy db seed remove`
@@ -607,8 +609,8 @@ vibes-diy CLI db seed remove
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -616,7 +618,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ## `vibes-diy secrets`
@@ -642,9 +644,9 @@ vibes-diy CLI secrets set
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -665,9 +667,9 @@ vibes-diy CLI secrets ls
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -684,9 +686,9 @@ vibes-diy CLI secrets rm
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -723,9 +725,9 @@ vibes-diy CLI recommend add
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -745,9 +747,9 @@ vibes-diy CLI recommend ls
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -764,9 +766,9 @@ vibes-diy CLI recommend rm
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -786,9 +788,9 @@ vibes-diy CLI recommend mask
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -808,9 +810,9 @@ vibes-diy CLI recommend unmask
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -893,9 +895,9 @@ vibes-diy CLI developer add
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -915,9 +917,9 @@ vibes-diy CLI developer rm
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -937,9 +939,9 @@ vibes-diy CLI developer ls
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
   --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
 
 FLAGS:
@@ -956,8 +958,8 @@ vibes-diy CLI edit
 
 OPTIONS:
   --api-url, -u <str>   - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>          - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>        - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>          - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>        - Publish under this bound handle for this call only (leaves your default handle unchanged). Scripts and agents always pass it (or --vibe handle/app-slug), so the new app's address never depends on the default. [default: ]
   --user-slug <str>     - a string [default: ]
   --dir <str>           - Directory to write resolved files and push from (defaults to cwd) [default: ]
   --focus <str>         - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
@@ -976,7 +978,7 @@ FLAGS:
   --help, -h     - show help [optional]
 
 ARGUMENTS:
-  [vibe]   - App slug or handle/app-slug [optional]
+  [vibe]   - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
   [prompt] - Follow-up prompt describing what to change [optional]
 ```
 
@@ -989,9 +991,9 @@ vibes-diy CLI generate
 OPTIONS:
   --api-url, -u <str>   - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --app-slug, -a <str>  - App slug (server generates one if omitted) [default: ]
-  --handle <str>        - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>        - Publish under this bound handle for this call only (leaves your default handle unchanged). Scripts and agents always pass it (or --vibe handle/app-slug), so the new app's address never depends on the default. [default: ]
   --user-slug <str>     - a string [default: ]
-  --vibe <str>          - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>          - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --focus <str>         - Path to focus first in slot rendering (e.g. Card.jsx for multi-file edits) [optional]
   --variety <str>       - Pin this build's layout archetype and three flourishes instead of letting the server draw them, as <archetype>:<flourish>,<flourish>,<flourish>. Run `vibes-diy variety` for the names. A look that ships a design brief draws from a NARROWER pool — its excluded ids are listed in that look's dialect under prompts/pkg/themes/looks/<look>/variety.ts — and a pin naming one of them is refused rather than quietly ignored. For holding one axis still across a comparison; an ordinary build should omit it. [optional]
   --record <str>        - Write this run's raw transcript into this directory as <chatId>.wire.json: every wire event with its arrival time, and the messages you typed. A raw transcript for replaying what happened by hand; the eval runner's judged record is a separate tool. [optional]
@@ -1057,7 +1059,7 @@ vibes-diy CLI mcp
 
 OPTIONS:
   --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: <current directory name>]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
 
 FLAGS:
@@ -1069,7 +1071,8 @@ Tools: vibes_list_apps, vibes_list_databases, vibes_get, vibes_put, vibes_delete
 `vibes_generate` builds a brand-new vibe from a text prompt and deploys it live —
 it takes minutes and spends your AI credits. The new app is separate from the
 `--app-slug` this server was started with; the data tools keep pointing at that
-one.
+one. Always pass `--handle` with `--app-slug`: without it the server binds to
+whatever the account's default handle is when it starts.
 
 `vibes_add_seed_data` adds the live version's sample data (its `seed.json`) to the
 app's databases, keeping your edits; `vibes_remove_seed_data` takes it out again.
@@ -1100,7 +1103,7 @@ Add to .mcp.json in your project root:
   "mcpServers": {
     "my-vibe": {
       "command": "npx",
-      "args": ["vibes-diy", "mcp"]
+      "args": ["vibes-diy", "mcp", "--app-slug", "APP", "--handle", "USER"]
     }
   }
 }
@@ -1108,7 +1111,7 @@ Add to .mcp.json in your project root:
 
 ### Test interactively
 
-    npx @modelcontextprotocol/inspector npx vibes-diy mcp --app-slug APP
+    npx @modelcontextprotocol/inspector npx vibes-diy mcp --app-slug APP --handle USER
 ````
 
 ## `vibes-diy pull`
@@ -1119,8 +1122,8 @@ vibes-diy CLI pull
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --user-slug <str>   - a string [default: ]
   --dir <str>         - Directory to write files into (defaults to ./<appSlug>/) [default: ]
   --fsId <str>        - Pull a specific version by fsId (use instead of --version / --published / --draft) [default: ]
@@ -1134,7 +1137,7 @@ FLAGS:
   --help, -h  - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ## `vibes-diy push`
@@ -1147,9 +1150,9 @@ OPTIONS:
   --api-url, -u <str>     - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --mode <str>            - Deploy mode: production or dev [default: production]
   --app-slug, -a <str>    - App slug (defaults to directory name) [default: ]
-  --handle <str>          - Publish under this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>          - Publish under this bound handle for this call only (leaves your default handle unchanged). Scripts and agents always pass it (or --vibe handle/app-slug), so the new app's address never depends on the default. [default: ]
   --user-slug <str>       - a string [default: ]
-  --vibe <str>            - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>            - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --access <str>          - Deployment posture: open (anyone can reach it; your access.js governs its documents), gated (anyone can view, members write), private (members only). Defaults to open. [default: ]
   --from <str>            - Carry the settings (theme, style, layout, icon, title) of this vibe of yours — handle/app-slug — into the pushed app. The source must be a vibe you own; that is checked before anything is minted. [default: ]
   --api-key <str>         - Provider API key for a wizard turn triggered by this push (BYOK): bills your own key instead of your Vibes credits. Not persisted. [optional]
@@ -1172,7 +1175,7 @@ vibes-diy CLI remix
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --to <str>          - Destination as handle/app-slug. Both are pins: a handle you don't own, or a slug already taken, is refused. [default: ]
+  --to <str>          - Destination as handle/app-slug. Both are pins: a handle you don't own, or a slug already taken, is refused. Scripts and agents always pass --to; without it the copy lands under your default handle. [default: ]
 
 FLAGS:
   --json, -j      - selects json output format [optional]
@@ -1193,8 +1196,8 @@ vibes-diy CLI publish
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --fsId <str>        - Publish a specific version (fsId from `vibes-diy versions`) instead of the latest dev draft. [default: ]
 
 FLAGS:
@@ -1203,7 +1206,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ## `vibes-diy unpublish`
@@ -1214,8 +1217,8 @@ vibes-diy CLI unpublish
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1223,7 +1226,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ## `vibes-diy versions`
@@ -1234,8 +1237,8 @@ vibes-diy CLI versions
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1243,7 +1246,7 @@ FLAGS:
   --help, -h - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ## `vibes-diy assets`
@@ -1267,8 +1270,8 @@ vibes-diy CLI assets ls
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --vibe <str>        - Vibe identifier as handle/app-slug [default: ]
-  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
 FLAGS:
   --json, -j  - selects json output format [optional]
@@ -1277,7 +1280,7 @@ FLAGS:
   --help, -h  - show help [optional]
 
 ARGUMENTS:
-  [vibe] - App slug or handle/app-slug (e.g. jchris/hat-smeller) [optional]
+  [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
 ```
 
 ## `vibes-diy put-asset`
@@ -1289,9 +1292,9 @@ vibes-diy CLI put-asset
 OPTIONS:
   --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --app-slug, -a <str> - App slug (defaults to the file's basename without extension) [default: ]
-  --handle <str>       - Act as this bound handle for this call only (leaves your default handle unchanged) [default: ]
+  --handle <str>       - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
   --user-slug <str>    - a string [default: ]
-  --vibe <str>         - Vibe identifier as handle/app-slug [default: ]
+  --vibe <str>         - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --mime-type <str>    - Content-Type for the upload (inferred from extension if omitted) [default: ]
 
 FLAGS:
