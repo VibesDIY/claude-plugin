@@ -26,6 +26,7 @@ where <subcommand> can be one of:
 - recommend - Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
 - retention - Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
+- doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
 - generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
@@ -973,6 +974,21 @@ FLAGS:
   --help, -h - show help [optional]
 ```
 
+## `vibes-diy doctor`
+
+```text
+vibes-diy CLI doctor
+> Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
 ## `vibes-diy edit`
 
 ```text
@@ -1064,14 +1080,16 @@ vibes-diy CLI login
 
 OPTIONS:
   --api-url, -u <str>      - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --timeout <str>          - Seconds to wait for browser auth callback [default: 120]
+  --timeout <str>          - Seconds to wait for browser auth callback (the CSR is valid for 1 hour) [default: 3600]
   --common-name, -cn <str> - Common name for the device certificate (defaults to random ID) [default: ]
+  --cert <str>             - Finish a login whose browser couldn't reach localhost: the cert= value, or the whole failed redirect URL, from the browser's address bar [default: ]
 
 FLAGS:
-  --json, -j - selects json output format [optional]
-  --text, -t - select text output format [default: true]
-  --force    - Re-register even if a certificate already exists [optional]
-  --help, -h - show help [optional]
+  --json, -j   - selects json output format [optional]
+  --text, -t   - select text output format [default: true]
+  --force      - Re-register even if a certificate already exists (a pending, unenrolled key is replaced) [optional]
+  --no-browser - Don't open a browser; print the URL to open on any machine [optional]
+  --help, -h   - show help [optional]
 ```
 
 ## `vibes-diy mcp`
