@@ -275,7 +275,7 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
-  --theme <str>       - Colour theme slug (see `vibes-diy themes`), or `pouf` to move the vibe onto the look new apps mint (owner only; a room is drawn unless --style pins one). Served right away; an unknown slug is refused with the list. [default: ]
+  --theme <str>       - Colour theme slug (see `vibes-diy themes`), `pouf` to move the vibe onto the look new apps mint (owner only; a room is drawn unless --style pins one), or `custom` to let the vibe wear the style its own code writes (owner only). Served right away; an unknown slug is refused with the list. [default: ]
   --style <str>       - Colourway, e.g. `rose`. With --theme pouf it pins the room instead of drawing one; alone it changes the vibe's colour. A colourway the look cannot wear is refused with the eligible list. [default: ]
   --variety <str>     - Layout archetype and flourishes as "archetype:a,b,c" (see `vibes-diy variety`), or "none" to remove both. Takes effect on the next build. [default: ]
 
