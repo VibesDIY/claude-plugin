@@ -240,7 +240,7 @@ vibes-diy CLI app look <subcommand>
 where <subcommand> can be one of:
 
 - get - Show the vibe's theme, style and the layout archetype and flourishes it carries, with where they came from.
-- set - Change the vibe's theme and/or its layout archetype and flourishes. A theme is served immediately; a variety only arms the next build. Spends nothing unless --relayout is passed.
+- set - Change the vibe's theme, its Look tab controls (font, hue dials, gap pin, pad, pins, draft/publish) and/or its layout archetype and flourishes. A theme or style edit is served immediately (unless --draft); a variety only arms the next build. Spends nothing unless --relayout is passed.
 
 For more help, try running `vibes-diy CLI app look <subcommand> --help`
 ```
@@ -269,7 +269,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app look set
-> Change the vibe's theme and/or its layout archetype and flourishes. A theme is served immediately; a variety only arms the next build. Spends nothing unless --relayout is passed.
+> Change the vibe's theme, its Look tab controls (font, hue dials, gap pin, pad, pins, draft/publish) and/or its layout archetype and flourishes. A theme or style edit is served immediately (unless --draft); a variety only arms the next build. Spends nothing unless --relayout is passed.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -278,12 +278,23 @@ OPTIONS:
   --theme <str>       - Colour theme slug (see `vibes-diy themes`), `pouf` to move the vibe onto the look new apps mint (owner only; a room is drawn unless --style pins one), or `custom` to let the vibe wear the style its own code writes (owner only). Served right away; an unknown slug is refused with the list. [default: ]
   --style <str>       - Colourway, e.g. `rose`. With --theme pouf it pins the room instead of drawing one; alone it changes the vibe's colour. A colourway the look cannot wear is refused with the eligible list. [default: ]
   --variety <str>     - Layout archetype and flourishes as "archetype:a,b,c" (see `vibes-diy variety`), or "none" to remove both. Takes effect on the next build. [default: ]
+  --font <str>        - Look tab font slug (system, inter, dm-sans, nunito, space-grotesk, rajdhani, bebas-neue, playfair-display, lora, source-serif-4, helvetica, jetbrains-mono, vt323). Keeps colour and ornament. [default: ]
+  --hue-lead <str>    - Lead hue dial, in degrees. On a pouf room it is the room's lead (unlocks Home); otherwise control 1 of the cascade. [default: ]
+  --hue-up <str>      - Up dial, as the ABSOLUTE hue the Look tab shows. On a pouf room it is stored as a nudge and must sit within ±15° of where the room puts up; otherwise it pins control 2. [default: ]
+  --hue-down <str>    - Down dial, as the ABSOLUTE hue the Look tab shows. On a pouf room it is stored as a nudge and must sit within ±15° of where the room puts down; otherwise it pins control 3. [default: ]
+  --pin-gap <str>     - Pin a pouf room's gap fill at a hue (degrees), or "off" to let it follow the room again. Pouf only. [default: ]
+  --pad <str>         - Ornament pad position "x,y", each -1..1. Token pins are kept. [default: ]
+  --pin <str>         - Hold one pad-driven token at a value, "token=value" (e.g. radius=4px), or "token=off" to release it. Repeatable. [default: ]
+  --style-json <str>  - A whole style blob, written verbatim: the `styleBlob` that `app look get --json` prints, for an exact restore. Other Look flags apply on top. [default: ]
 
 FLAGS:
-  --json, -j - selects json output format [optional]
-  --text, -t - select text output format [default: true]
-  --relayout - Dispatch a build now that re-lays the app out onto its stored archetype and flourishes. This is the only thing here that spends credits. Allowed on its own, with no --variety: it re-lays out onto whatever is already stored. [optional]
-  --help, -h - show help [optional]
+  --json, -j     - selects json output format [optional]
+  --text, -t     - select text output format [default: true]
+  --relayout     - Dispatch a build now that re-lays the app out onto its stored archetype and flourishes. This is the only thing here that spends credits. Allowed on its own, with no --variety: it re-lays out onto whatever is already stored. [optional]
+  --draft        - Save the style edits as the unpublished draft (what the Look tab auto-saves) instead of serving them. [optional]
+  --publish      - Publish the draft style. With style edits, saves them as the draft and then publishes. With no draft to publish the server refuses (style-publish:no-draft). [optional]
+  --revert-draft - Discard the unpublished draft style; the published style is untouched. [optional]
+  --help, -h     - show help [optional]
 
 ARGUMENTS:
   [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
