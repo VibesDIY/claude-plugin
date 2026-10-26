@@ -76,7 +76,10 @@ refused before anything is built, with the valid names listed.
 Don't regenerate an app to restyle it. `vibes-diy app look get <owner>/<slug>`
 prints its theme, style and current archetype + flourishes, and `app look set
 <owner>/<slug> [--theme <slug>] [--variety "<archetype>:<a>,<b>,<c>"]` changes
-them in place — the app keeps its URL, its data and its code. A theme is served,
+them in place — the app keeps its URL, its data and its code. The same command
+takes every Look-tab control (`--font`, `--hue-lead`/`--hue-up`/`--hue-down`,
+`--pin-gap`, `--pad x,y`, `--pin token=value`, `--draft`/`--publish`), each
+changing only what it names. A theme or style is served,
 so colours change without a build; a variety only ARMS the next build, so the app
 keeps its current layout until the user's next edit restructures it (or until you
 pass `--relayout`, which dispatches that edit immediately and spends a turn —
