@@ -79,7 +79,8 @@ prints its theme, style and current archetype + flourishes, and `app look set
 them in place — the app keeps its URL, its data and its code. The same command
 takes every Look-tab control (`--font`, `--hue-lead`/`--hue-up`/`--hue-down`,
 `--pin-gap`, `--pad x,y`, `--pin token=value`, `--draft`/`--publish`), each
-changing only what it names. A theme or style is served,
+changing only what it names, and `--look <pouf|brute|newsprint|atelier|terminal|scrapbook>`
+switches the look package the app's shared components wear, with no code change. A theme or style is served,
 so colours change without a build; a variety only ARMS the next build, so the app
 keeps its current layout until the user's next edit restructures it (or until you
 pass `--relayout`, which dispatches that edit immediately and spends a turn —
