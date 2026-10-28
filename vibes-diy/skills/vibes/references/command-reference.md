@@ -83,7 +83,7 @@ where <subcommand> can be one of:
 - logs - Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
 - chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 - screenshot - Re-capture the gallery screenshot of one or more named vibes, through the platform's own capture path.
-- look - Read or change an existing vibe's look: its colour theme, its look package (pouf, brute, …), and its layout archetype and flourishes
+- look - Read or change an existing vibe's look: its colour theme, its look package (Pouf, Brute, …), and its layout archetype and flourishes
 - anon-write - Read or set whether signed-out visitors' writes reach the server (owner, or a developer they delegated). `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
 - auto-enhance - Read or set whether Vibes DIY may push fixes and upgrades to your live app (owner only). `on` lets it, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` keeps the live app to your own pushes. No argument reads. Default is on.
 
@@ -235,11 +235,11 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app look <subcommand>
-> Read or change an existing vibe's look: its colour theme, its look package (pouf, brute, …), and its layout archetype and flourishes
+> Read or change an existing vibe's look: its colour theme, its look package (Pouf, Brute, …), and its layout archetype and flourishes
 
 where <subcommand> can be one of:
 
-- get - Show the vibe's theme, look package (pouf when none is picked), style and the layout archetype and flourishes it carries, with where they came from.
+- get - Show the vibe's theme, look package (Pouf when none is picked), style and the layout archetype and flourishes it carries, with where they came from.
 - set - Change the vibe's theme, its look package (--look), its Look tab controls (font, hue dials, gap pin, pad, pins, draft/publish) and/or its layout archetype and flourishes. A theme, look or style edit is served immediately (unless --draft); a variety only arms the next build. Spends nothing unless --relayout is passed.
 
 For more help, try running `vibes-diy CLI app look <subcommand> --help`
@@ -249,7 +249,7 @@ For more help, try running `vibes-diy CLI app look <subcommand> --help`
 
 ```text
 vibes-diy CLI app look get
-> Show the vibe's theme, look package (pouf when none is picked), style and the layout archetype and flourishes it carries, with where they came from.
+> Show the vibe's theme, look package (Pouf when none is picked), style and the layout archetype and flourishes it carries, with where they came from.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -280,10 +280,10 @@ OPTIONS:
   --variety <str>     - Layout archetype and flourishes as "archetype:a,b,c" (see `vibes-diy variety`), or "none" to remove both. Takes effect on the next build. [default: ]
   --look <str>        - Look package — the skin the vibe's shared components wear: pouf, brute, newsprint, atelier, terminal, scrapbook, or "none" to wear the package its source imports. The Look tab's look selector: no source change, served right away (never a draft). Owner only. [default: ]
   --font <str>        - Look tab font slug (system, inter, dm-sans, nunito, space-grotesk, rajdhani, bebas-neue, playfair-display, lora, source-serif-4, helvetica, jetbrains-mono, vt323). Keeps colour and ornament. [default: ]
-  --hue-lead <str>    - Lead hue dial, in degrees. On a pouf room it is the room's lead (unlocks Home); otherwise control 1 of the cascade. [default: ]
-  --hue-up <str>      - Up dial, as the ABSOLUTE hue the Look tab shows. On a pouf room it is stored as a nudge and must sit within ±15° of where the room puts up; otherwise it pins control 2. [default: ]
-  --hue-down <str>    - Down dial, as the ABSOLUTE hue the Look tab shows. On a pouf room it is stored as a nudge and must sit within ±15° of where the room puts down; otherwise it pins control 3. [default: ]
-  --pin-gap <str>     - Pin a pouf room's gap fill at a hue (degrees), or "off" to let it follow the room again. Pouf only. [default: ]
+  --hue-lead <str>    - Lead hue dial, in degrees. On a room it is the room's lead (unlocks Home); otherwise control 1 of the cascade. [default: ]
+  --hue-up <str>      - Up dial, as the ABSOLUTE hue the Look tab shows. On a room it is stored as a nudge and must sit within ±15° of where the room puts up; otherwise it pins control 2. [default: ]
+  --hue-down <str>    - Down dial, as the ABSOLUTE hue the Look tab shows. On a room it is stored as a nudge and must sit within ±15° of where the room puts down; otherwise it pins control 3. [default: ]
+  --pin-gap <str>     - Pin a room's gap fill at a hue (degrees), or "off" to let it follow the room again. Rooms only. [default: ]
   --pad <str>         - Ornament pad position "x,y", each -1..1. Token pins are kept. [default: ]
   --pin <str>         - Hold one pad-driven token at a value, "token=value" (e.g. radius=4px), or "token=off" to release it. Repeatable. [default: ]
   --style-json <str>  - A whole style blob, written verbatim: the `styleBlob` that `app look get --json` prints, for an exact restore. Other Look flags apply on top. [default: ]
