@@ -26,6 +26,7 @@ where <subcommand> can be one of:
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
 - recommend - Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
 - retention - Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
+- phone-link - Link a phone to an account so texting Vibes reaches that person's agent (redeem is for the iMessage bridge)
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
@@ -80,10 +81,12 @@ OPTIONS:
   --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --handle <str>       - The handle whose agent to talk to. Defaults to your default handle. [default: ]
   --follow-ms <number> - After the agent goes idle, keep listening this many milliseconds for its follow-up when a build it started finishes. 0 stops at the first idle. [default: 0]
+  --chat <str>         - Continue this agent discussion (a chatId from an earlier --json summary) instead of the handle's first one. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --new-chat - Start a fresh agent discussion. Its chatId is in the --json summary line; pass it to --chat to continue. [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
@@ -105,7 +108,7 @@ where <subcommand> can be one of:
 - chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 - screenshot - Re-capture the gallery screenshot of one or more named vibes, through the platform's own capture path.
 - look - Read or change an existing vibe's look: its colour theme, its look package (Pouf, Brute, …), and its layout archetype and flourishes
-- anon-write - Read or set whether signed-out visitors' writes reach the server (owner, or a developer they delegated). `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
+- anon-write - Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
 - auto-enhance - Read or set whether Vibes DIY may push fixes and upgrades to your live app (owner only). `on` lets it, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` keeps the live app to your own pushes. No argument reads. Default is on.
 - call - Call one of a vibe's own backend.js routes as you, signed in — the same call the app's own buttons make. Prints the status and the route's answer; exits 1 on a non-2xx answer.
 
@@ -327,7 +330,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app anon-write
-> Read or set whether signed-out visitors' writes reach the server (owner, or a developer they delegated). `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
+> Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -946,6 +949,37 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --user <str>        - Target Clerk userId [default: ]
   --step <str>        - Retention step id — omit to clear every claim on the account [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+## `vibes-diy phone-link`
+
+```text
+vibes-diy CLI phone-link <subcommand>
+> Link a phone to an account so texting Vibes reaches that person's agent (redeem is for the iMessage bridge)
+
+where <subcommand> can be one of:
+
+- redeem - Trade a one-time phone-link code and a device CSR for a device certificate signed as the code's owner (iMessage bridge accounts only).
+
+For more help, try running `vibes-diy CLI phone-link <subcommand> --help`
+```
+
+### `vibes-diy phone-link redeem`
+
+```text
+vibes-diy CLI phone-link redeem
+> Trade a one-time phone-link code and a device CSR for a device certificate signed as the code's owner (iMessage bridge accounts only).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --code <str>        - The one-time code the person texted (case and spaces don't matter). [default: ]
+  --csr <str>         - The phone's self-signed device CSR (JWS). [default: ]
+  --address <str>     - The iMessage address that texted the code; the owner's card shows it masked (••12). [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
