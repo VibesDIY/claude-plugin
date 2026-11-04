@@ -16,6 +16,7 @@ vibes-diy CLI <subcommand>
 
 where <subcommand> can be one of:
 
+- agent - Send one message to a handle's agent (the /agent conversation) and print its reply. Each handle has its own agent conversation, memory and vibes.
 - app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, whether signed-out visitors can write, whether Vibes DIY may improve it, and calling its own backend routes
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
@@ -67,6 +68,26 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 - `npx vibes-diy login` — authenticate this device (run once before first push)
 - `npx vibes-diy mcp --help` — start an MCP server for AI agent data access (Claude Desktop / Cowork)
 - `npx vibes-diy help` — show all available commands
+```
+
+## `vibes-diy agent`
+
+```text
+vibes-diy CLI agent
+> Send one message to a handle's agent (the /agent conversation) and print its reply. Each handle has its own agent conversation, memory and vibes.
+
+OPTIONS:
+  --api-url, -u <str>  - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>       - The handle whose agent to talk to. Defaults to your default handle. [default: ]
+  --follow-ms <number> - After the agent goes idle, keep listening this many milliseconds for its follow-up when a build it started finishes. 0 stops at the first idle. [default: 0]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <message> - What to say to the agent.
 ```
 
 ## `vibes-diy app`
