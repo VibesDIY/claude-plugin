@@ -965,6 +965,8 @@ vibes-diy CLI phone-link <subcommand>
 where <subcommand> can be one of:
 
 - redeem - Trade a one-time phone-link code and a device CSR for a device certificate signed as the code's owner (iMessage bridge accounts only).
+- group - Trade a group key and a device CSR for a certificate signed as that iMessage group's own principal (iMessage bridge accounts only).
+- pay-for-group - Pay, from your own credits, for an iMessage group's next requests (the bridge runs this as the member who asked).
 
 For more help, try running `vibes-diy CLI phone-link <subcommand> --help`
 ```
@@ -980,6 +982,39 @@ OPTIONS:
   --code <str>        - The one-time code the person texted (case and spaces don't matter). [default: ]
   --csr <str>         - The phone's self-signed device CSR (JWS). [default: ]
   --address <str>     - The iMessage address that texted the code; the owner's card shows it masked (••12). [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link group`
+
+```text
+vibes-diy CLI phone-link group
+> Trade a group key and a device CSR for a certificate signed as that iMessage group's own principal (iMessage bridge accounts only).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --group-key <str>   - The bridge's opaque key for the group: 8 to 64 lowercase letters, digits or dashes. [default: ]
+  --csr <str>         - The group keybag's self-signed device CSR (JWS). [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link pay-for-group`
+
+```text
+vibes-diy CLI phone-link pay-for-group
+> Pay, from your own credits, for an iMessage group's next requests (the bridge runs this as the member who asked).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --group <str>       - The group principal, group:<id>. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
