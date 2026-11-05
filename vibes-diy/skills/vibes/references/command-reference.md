@@ -970,6 +970,7 @@ where <subcommand> can be one of:
 - alerts - Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
 - invite - Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
 - invite-status - Check a phone-link invite; once the person accepts, returns the device certificate exactly once (iMessage bridge accounts only).
+- classify - Pick the classic iMessage tapback (❤️ 👍 👎 😂 ‼️ ❓) that fits a message, or none, for the bridge's instant reaction (iMessage bridge accounts only).
 
 For more help, try running `vibes-diy CLI phone-link <subcommand> --help`
 ```
@@ -1071,6 +1072,21 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link classify`
+
+```text
+vibes-diy CLI phone-link classify
+> Pick the classic iMessage tapback (❤️ 👍 👎 😂 ‼️ ❓) that fits a message, or none, for the bridge's instant reaction (iMessage bridge accounts only).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --text <str>        - The message to react to. Read once, never stored. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
   --help, -h - show help [optional]
 ```
 
