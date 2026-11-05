@@ -967,6 +967,9 @@ where <subcommand> can be one of:
 - redeem - Trade a one-time phone-link code and a device CSR for a device certificate signed as the code's owner (iMessage bridge accounts only).
 - group - Trade a group key and a device CSR for a certificate signed as that iMessage group's own principal (iMessage bridge accounts only).
 - pay-for-group - Pay, from your own credits, for an iMessage group's next requests (the bridge runs this as the member who asked).
+- alerts - Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
+- invite - Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
+- invite-status - Check a phone-link invite; once the person accepts, returns the device certificate exactly once (iMessage bridge accounts only).
 
 For more help, try running `vibes-diy CLI phone-link <subcommand> --help`
 ```
@@ -1015,6 +1018,55 @@ vibes-diy CLI phone-link pay-for-group
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --group <str>       - The group principal, group:<id>. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link alerts`
+
+```text
+vibes-diy CLI phone-link alerts
+> Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>      - The handle the phone is linked to (default: the account's active handle). [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link invite`
+
+```text
+vibes-diy CLI phone-link invite
+> Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --address <str>     - The iMessage address the link is texted to; kept only masked (••12). [default: ]
+  --csr <str>         - The self-signed device CSR (JWS) the bridge made for that address. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link invite-status`
+
+```text
+vibes-diy CLI phone-link invite-status
+> Check a phone-link invite; once the person accepts, returns the device certificate exactly once (iMessage bridge accounts only).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --token <str>       - The invite token that phone-link invite returned. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
