@@ -969,6 +969,7 @@ where <subcommand> can be one of:
 - group - Trade a group key and a device CSR for a certificate signed as that iMessage group's own principal (iMessage bridge accounts only).
 - pay-for-group - Pay, from your own credits, for an iMessage group's next requests (the bridge runs this as the member who asked).
 - alerts - Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
+- wakes - Read what this handle's own vibes reported with ctx.notify since the last read, and move that place (the iMessage bridge runs it as each chat's principal, then wakes the agent).
 - invite - Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
 - invite-status - Check a phone-link invite; once the person accepts, returns the device certificate exactly once (iMessage bridge accounts only).
 - classify - Pick the classic iMessage tapback (❤️ 👍 👎 😂 ‼️ ❓) that fits a message, or none, for the bridge's instant reaction (iMessage bridge accounts only).
@@ -1036,6 +1037,22 @@ vibes-diy CLI phone-link alerts
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --handle <str>      - The handle the phone is linked to (default: the account's active handle). [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link wakes`
+
+```text
+vibes-diy CLI phone-link wakes
+> Read what this handle's own vibes reported with ctx.notify since the last read, and move that place (the iMessage bridge runs it as each chat's principal, then wakes the agent).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>      - The handle whose vibes reported (default: the account's active handle). [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
