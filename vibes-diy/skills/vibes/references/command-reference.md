@@ -82,6 +82,7 @@ OPTIONS:
   --handle <str>       - The handle whose agent to talk to. Defaults to your default handle. [default: ]
   --follow-ms <number> - After the agent goes idle, keep listening this many milliseconds for its follow-up when a build it started finishes. 0 stops at the first idle. [default: 0]
   --chat <str>         - Continue this agent discussion (a chatId from an earlier --json summary) instead of the handle's first one. [default: ]
+  --image <str>        - Attach a picture (JPEG, PNG, WebP…) to the message, so the agent sees it; repeatable. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
