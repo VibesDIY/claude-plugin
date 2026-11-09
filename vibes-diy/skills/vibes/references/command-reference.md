@@ -31,6 +31,7 @@ where <subcommand> can be one of:
 - doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
 - generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
+- image - Paint a picture from a prompt (optionally from a photo) and save it locally, the same picture the agent's make_picture paints; billed like an image in an app.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
 - login - Authenticate this device with vibes.diy cloud.
 - mcp - Start an MCP server for AI agent data access (stdio transport)
@@ -1267,6 +1268,30 @@ FLAGS:
 
 ARGUMENTS:
   <prompt> - Describe the app you want to create
+```
+
+## `vibes-diy image`
+
+```text
+vibes-diy CLI image
+> Paint a picture from a prompt (optionally from a photo) and save it locally, the same picture the agent's make_picture paints; billed like an image in an app.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>      - The handle to paint as. Defaults to your default handle. [default: ]
+  --photo <str>       - Start from this photo (JPEG, PNG, WebP…), uploaded to the handle's agent space. [default: ]
+  --vibe <str>        - Also save it into one of your vibes (handle/app-slug), as the picture of the record --db/--doc names. [default: ]
+  --db <str>          - With --vibe: the database of the record. [default: ]
+  --doc <str>         - With --vibe: the id of the record. [default: ]
+  --out, -o <str>     - Where to save the picture. Defaults to ./<picture name>; an existing file is kept. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <prompt> - What the picture shows, in plain words.
 ```
 
 ## `vibes-diy list`
