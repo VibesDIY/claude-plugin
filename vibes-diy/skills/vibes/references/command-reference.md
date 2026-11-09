@@ -111,7 +111,7 @@ where <subcommand> can be one of:
 - screenshot - Re-capture the gallery screenshot of one or more named vibes, through the platform's own capture path.
 - look - Read or change an existing vibe's look: its colour theme, its look package (Pouf, Brute, …), and its layout archetype and flourishes
 - anon-write - Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
-- auto-enhance - Read or set whether Vibes DIY may push fixes and upgrades to your live app (owner only). `on` lets it, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` keeps the live app to your own pushes. No argument reads. Default is on.
+- auto-enhance - Read or set Allow auto-enhance: whether Vibes DIY may push routine fixes and upgrades to your live app (owner only). `on` welcomes them, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` stops routine upgrades, and we may still make changes to keep the app safe and working. No argument reads. Default is on.
 - call - Call one of a vibe's own backend.js routes as you, signed in — the same call the app's own buttons make. Prints the status and the route's answer; exits 1 on a non-2xx answer.
 
 For more help, try running `vibes-diy CLI app <subcommand> --help`
@@ -353,7 +353,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app auto-enhance
-> Read or set whether Vibes DIY may push fixes and upgrades to your live app (owner only). `on` lets it, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` keeps the live app to your own pushes. No argument reads. Default is on.
+> Read or set Allow auto-enhance: whether Vibes DIY may push routine fixes and upgrades to your live app (owner only). `on` welcomes them, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` stops routine upgrades, and we may still make changes to keep the app safe and working. No argument reads. Default is on.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -367,7 +367,7 @@ FLAGS:
 
 ARGUMENTS:
   [vibe]   - App slug or handle/app-slug (e.g. jchris/guestbook) [optional]
-  [on|off] - on = let Vibes DIY improve the app, off = only your own pushes. Omit to read. [optional]
+  [on|off] - on = allow auto-enhance, off = no routine upgrades. Omit to read. [optional]
 ```
 
 ### `vibes-diy app call`
