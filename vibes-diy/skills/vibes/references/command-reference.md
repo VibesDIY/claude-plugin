@@ -26,6 +26,7 @@ where <subcommand> can be one of:
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
 - recommend - Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
 - retention - Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
+- moderation - Platform-admin moderation: vibe reports, account suspension and the stop-publishing switch
 - phone-link - Link a phone to an account so texting Vibes reaches that person's agent (redeem is for the iMessage bridge)
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
@@ -952,6 +953,172 @@ OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --user <str>        - Target Clerk userId [default: ]
   --step <str>        - Retention step id — omit to clear every claim on the account [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+## `vibes-diy moderation`
+
+```text
+vibes-diy CLI moderation <subcommand>
+> Platform-admin moderation: vibe reports, account suspension and the stop-publishing switch
+
+where <subcommand> can be one of:
+
+- reports - List vibe reports, newest first (open by default)
+- resolve - Mark a report resolved: --report <id> --reason <what was done>
+- suspend - Suspend an account: --user <id> or --handle <h>, with --reason
+- unsuspend - Restore a suspended account, with --reason
+- pause-publishing - Pause publishing across the platform, with --reason
+- resume-publishing - Turn publishing back on, with --reason
+- status - The publishing switch, active suspensions and the open report count
+
+For more help, try running `vibes-diy CLI moderation <subcommand> --help`
+```
+
+### `vibes-diy moderation reports`
+
+```text
+vibes-diy CLI moderation reports
+> List vibe reports, newest first (open by default)
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation resolve`
+
+```text
+vibes-diy CLI moderation resolve
+> Mark a report resolved: --report <id> --reason <what was done>
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation suspend`
+
+```text
+vibes-diy CLI moderation suspend
+> Suspend an account: --user <id> or --handle <h>, with --reason
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation unsuspend`
+
+```text
+vibes-diy CLI moderation unsuspend
+> Restore a suspended account, with --reason
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation pause-publishing`
+
+```text
+vibes-diy CLI moderation pause-publishing
+> Pause publishing across the platform, with --reason
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation resume-publishing`
+
+```text
+vibes-diy CLI moderation resume-publishing
+> Turn publishing back on, with --reason
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation status`
+
+```text
+vibes-diy CLI moderation status
+> The publishing switch, active suspensions and the open report count
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
