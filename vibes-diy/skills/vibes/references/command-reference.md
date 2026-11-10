@@ -49,6 +49,7 @@ where <subcommand> can be one of:
 - variety - List the layout archetypes and flourishes `generate --variety` can pin.
 - system - Emit the base system prompt to stdout.
 - user-settings - Ensure/refresh user settings for the logged-in device.
+- whoami - Show whether this device is logged in, its default handle, and every handle the account holds.
 
 For more help, try running `vibes-diy CLI <subcommand> --help`
 ## CLI Quickstart
@@ -1767,6 +1768,9 @@ FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
   --help, -h - show help [optional]
+
+ARGUMENTS:
+  [name] - Skill name to show content for (omit to list all); same as --name [optional]
 ```
 
 ## `vibes-diy themes`
@@ -1824,6 +1828,21 @@ vibes-diy CLI user-settings
 OPTIONS:
   --api-url, -u <str>        - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --set-default-handle <str> - Set the account's default (active) handle to one of its bound handles [optional]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+## `vibes-diy whoami`
+
+```text
+vibes-diy CLI whoami
+> Show whether this device is logged in, its default handle, and every handle the account holds.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
 
 FLAGS:
   --json, -j - selects json output format [optional]
