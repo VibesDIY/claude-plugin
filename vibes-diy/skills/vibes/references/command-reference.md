@@ -89,6 +89,7 @@ FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
   --new-chat - Start a fresh agent discussion. Its chatId is in the --json summary line; pass it to --chat to continue. [optional]
+  --by-text  - This message came by text (the iMessage bridge): the agent's replies and pictures go to a phone. [optional]
   --help, -h - show help [optional]
 
 ARGUMENTS:
