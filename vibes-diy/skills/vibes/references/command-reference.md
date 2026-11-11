@@ -39,6 +39,7 @@ where <subcommand> can be one of:
 - pull - Download source files of a deployed vibe to disk.
 - push - Upload files from the current directory to a vibe.
 - remix - Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands you on the live URL (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
+- run - Run a vibe on your own machine or server: its page, data and access rules, served from a folder you own.
 - publish - Make a vibe live: promote its latest dev draft (or --fsId) to a new production release, and clear any unpublish tombstone. Use after editing in dev mode, or to bring an unpublished vibe back.
 - unpublish - Take a deployed vibe down (reversible). De-indexes the slug and blocks its public URL/remix/version listing; code, data, and grants are kept. Bring it back with `publish`.
 - versions - List every version of a vibe (fsId, mode, releaseSeq). Owner sees drafts; pull any with `pull --fsId`.
@@ -1639,6 +1640,29 @@ FLAGS:
 
 ARGUMENTS:
   <vibe> - The vibe to copy, as handle/app-slug
+```
+
+## `vibes-diy run`
+
+```text
+vibes-diy CLI run
+> Run a vibe on your own machine or server: its page, data and access rules, served from a folder you own.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --dir <str>         - The vibe's folder (default: ./<slug> when pulling, else the current directory) [default: ]
+  --port <number>     - Port to listen on (default 8790; 0 picks a free one) [default: 8790]
+  --host <str>        - Interface to listen on (default 127.0.0.1; 0.0.0.0 for every interface) [default: 127.0.0.1]
+  --state-dir <str>   - Where the vibe's database, files and keys live (default <dir>/.vibes-run) [default: ]
+  --base-url <str>    - Public origin behind a reverse proxy with wildcard DNS, e.g. https://vibes.example.com [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe] - handle/slug of a published vibe to pull and run (omit to run --dir as it is) [optional]
 ```
 
 ## `vibes-diy publish`
