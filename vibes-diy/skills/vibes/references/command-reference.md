@@ -1493,12 +1493,14 @@ OPTIONS:
   --timeout <str>          - Seconds to wait for browser auth callback (the CSR is valid for 1 hour) [default: 3600]
   --common-name, -cn <str> - Common name for the device certificate (defaults to random ID) [default: ]
   --cert <str>             - Finish a login whose browser couldn't reach localhost: the cert= value, or the whole failed redirect URL, from the browser's address bar [default: ]
+  --expect-handle <str>    - Only finish if the approving account holds this handle; otherwise exit non-zero without storing the cert [default: ]
+  --expect-user <str>      - Only finish if the approving account has this userId; otherwise exit non-zero without storing the cert [default: ]
 
 FLAGS:
   --json, -j   - selects json output format [optional]
   --text, -t   - select text output format [default: true]
   --force      - Re-register even if a certificate already exists (a pending, unenrolled key is replaced) [optional]
-  --no-browser - Don't open a browser; print the URL to open on any machine [optional]
+  --no-browser - Don't open a browser; print the URL to open on any device (a phone works) — the login finishes by itself [optional]
   --help, -h   - show help [optional]
 ```
 
