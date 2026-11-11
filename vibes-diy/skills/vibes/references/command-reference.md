@@ -1154,10 +1154,11 @@ vibes-diy CLI phone-link redeem
 > Trade a one-time phone-link code and a device CSR for a device certificate signed as the code's owner (iMessage bridge accounts only).
 
 OPTIONS:
-  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --code <str>        - The one-time code the person texted (case and spaces don't matter). [default: ]
-  --csr <str>         - The phone's self-signed device CSR (JWS). [default: ]
-  --address <str>     - The iMessage address that texted the code; the owner's card shows it masked (••12). [default: ]
+  --api-url, -u <str>     - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --code <str>            - The one-time code the person texted (case and spaces don't matter). [default: ]
+  --csr <str>             - The phone's self-signed device CSR (JWS). [default: ]
+  --address <str>         - The iMessage address that texted the code; the owner's card shows it masked (••12). [default: ]
+  --claim-group-key <str> - Bridge accounts only: the group key of the address's guest chat principal; linking moves what the guest made into the account. Defaults to $VIBES_CLAIM_GROUP_KEY. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1195,6 +1196,8 @@ OPTIONS:
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --guest    - Bridge accounts only: run the chat on its own guest credits instead of paying for it. [optional]
+  --asker    - You sent the message this pays for, so the group may act as you inside other people's vibes for it. Leave off for a wake. [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1237,9 +1240,10 @@ vibes-diy CLI phone-link invite
 > Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
 
 OPTIONS:
-  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
-  --address <str>     - The iMessage address the link is texted to; kept only masked (••12). [default: ]
-  --csr <str>         - The self-signed device CSR (JWS) the bridge made for that address. [default: ]
+  --api-url, -u <str>     - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --address <str>         - The iMessage address the link is texted to; kept only masked (••12). [default: ]
+  --csr <str>             - The self-signed device CSR (JWS) the bridge made for that address. [default: ]
+  --claim-group-key <str> - Bridge accounts only: the group key of the address's guest chat principal; linking moves what the guest made into the account. Defaults to $VIBES_CLAIM_GROUP_KEY. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
