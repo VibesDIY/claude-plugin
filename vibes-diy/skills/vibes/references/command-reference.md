@@ -26,7 +26,7 @@ where <subcommand> can be one of:
 - secrets - Manage per-vibe secrets readable by backend.js via ctx.secrets (owner-only; values are write-only)
 - recommend - Manage a vibe's recommended-apps chips (owner-only; the picks shown on its vibe card)
 - retention - Audition lifecycle mail: preview one retention step in a real inbox, and reset its claim to preview it again
-- moderation - Platform-admin moderation: vibe reports, account suspension and the stop-publishing switch
+- moderation - Platform-admin moderation: vibe reports, auto flags, account suspension and the stop-publishing switch
 - phone-link - Link a phone to an account so texting Vibes reaches that person's agent (redeem is for the iMessage bridge)
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
@@ -968,7 +968,7 @@ FLAGS:
 
 ```text
 vibes-diy CLI moderation <subcommand>
-> Platform-admin moderation: vibe reports, account suspension and the stop-publishing switch
+> Platform-admin moderation: vibe reports, auto flags, account suspension and the stop-publishing switch
 
 where <subcommand> can be one of:
 
@@ -979,6 +979,8 @@ where <subcommand> can be one of:
 - pause-publishing - Pause publishing across the platform, with --reason
 - resume-publishing - Turn publishing back on, with --reason
 - status - The publishing switch, active suspensions and the open report count
+- flags - List the prompt and code checker's flags, newest first (open by default)
+- triage - Triage an auto flag: --flag <id> --as false_alarm|escalated|resolved --reason <note>
 
 For more help, try running `vibes-diy CLI moderation <subcommand> --help`
 ```
@@ -997,6 +999,8 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1018,6 +1022,8 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1039,6 +1045,8 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1060,6 +1068,8 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1081,6 +1091,8 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1102,6 +1114,8 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1123,6 +1137,54 @@ OPTIONS:
   --handle <str>      - Account handle, instead of --user [default: ]
   --status <str>      - Reports to list: open (default), resolved or all [default: ]
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation flags`
+
+```text
+vibes-diy CLI moderation flags
+> List the prompt and code checker's flags, newest first (open by default)
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy moderation triage`
+
+```text
+vibes-diy CLI moderation triage
+> Triage an auto flag: --flag <id> --as false_alarm|escalated|resolved --reason <note>
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --reason <str>      - Why (required for every change; recorded in the audit log) [default: ]
+  --report <str>      - Report id (resolve) [default: ]
+  --user <str>        - Account userId (suspend / unsuspend) [default: ]
+  --handle <str>      - Account handle, instead of --user [default: ]
+  --status <str>      - Reports to list: open (default), resolved or all [default: ]
+  --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
+  --flag <str>        - Auto flag id (triage) [default: ]
+  --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
