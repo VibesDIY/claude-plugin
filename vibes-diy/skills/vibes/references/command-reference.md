@@ -1139,8 +1139,11 @@ where <subcommand> can be one of:
 - redeem - Trade a one-time phone-link code and a device CSR for a device certificate signed as the code's owner (iMessage bridge accounts only).
 - group - Trade a group key and a device CSR for a certificate signed as that iMessage group's own principal (iMessage bridge accounts only).
 - pay-for-group - Pay, from your own credits, for an iMessage group's next requests (the bridge runs this as the member who asked).
+- group-roster - Say which linked members are in an iMessage group, run as the group itself (the bridge runs this before each member's turn).
 - alerts - Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
 - wakes - Read what this handle's own vibes reported with ctx.notify since the last read, and move that place (the iMessage bridge runs it as each chat's principal, then wakes the agent).
+- vibes - List the vibes from other handles a group chat added (the iMessage bridge runs it as the group's principal for its new-chat line).
+- pause-vibe - A member's STOP in a group chat: pause the added vibe it names, list what a STOP paused, or turn them back on (the iMessage bridge runs it as the group's principal).
 - invite - Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
 - invite-status - Check a phone-link invite; once the person accepts, returns the device certificate exactly once (iMessage bridge accounts only).
 - classify - Pick the classic iMessage tapback (❤️ 👍 👎 😂 ‼️ ❓) that fits a message, or none, for the bridge's instant reaction (iMessage bridge accounts only).
@@ -1193,12 +1196,30 @@ vibes-diy CLI phone-link pay-for-group
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --group <str>       - The group principal, group:<id>. [default: ]
+  --members <str>     - The chat's linked members by handle, comma separated, for your own list of group chats. [default: ]
+
+FLAGS:
+  --json, -j  - selects json output format [optional]
+  --text, -t  - select text output format [default: true]
+  --guest     - Bridge accounts only: run the chat on its own guest credits instead of paying for it. [optional]
+  --asker     - You sent the message this pays for, so the group may act as you inside other people's vibes for it. Leave off for a wake. [optional]
+  --sponsored - Bridge accounts only: a member who hasn't linked asked in a sponsored chat, so the turn runs on the sponsor's credits. [optional]
+  --help, -h  - show help [optional]
+```
+
+### `vibes-diy phone-link group-roster`
+
+```text
+vibes-diy CLI phone-link group-roster
+> Say which linked members are in an iMessage group, run as the group itself (the bridge runs this before each member's turn).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --members <str>     - The chat's linked members by handle, comma separated. Replaces the last roster. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
-  --guest    - Bridge accounts only: run the chat on its own guest credits instead of paying for it. [optional]
-  --asker    - You sent the message this pays for, so the group may act as you inside other people's vibes for it. Leave off for a wake. [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1234,6 +1255,42 @@ FLAGS:
   --help, -h - show help [optional]
 ```
 
+### `vibes-diy phone-link vibes`
+
+```text
+vibes-diy CLI phone-link vibes
+> List the vibes from other handles a group chat added (the iMessage bridge runs it as the group's principal for its new-chat line).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>      - The group's handle (default: the account's active handle). [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link pause-vibe`
+
+```text
+vibes-diy CLI phone-link pause-vibe
+> A member's STOP in a group chat: pause the added vibe it names, list what a STOP paused, or turn them back on (the iMessage bridge runs it as the group's principal).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>      - The group's handle (default: the account's active handle). [default: ]
+  --action <str>      - stop (pause), keep (list what a STOP paused), resume, or posted (a woken turn's words reached the group). [default: stop]
+  --name <str>        - stop: the vibe the STOP named (default: the vibes of the last vibe-started post). [default: ]
+  --vibes <str>       - resume: owner/slug, comma separated (default: every vibe a STOP paused). posted: the vibes the post spoke for. [default: ]
+
+FLAGS:
+  --json, -j  - selects json output format [optional]
+  --text, -t  - select text output format [default: true]
+  --stop-line - posted: the opt-out line rode the text the group got. [optional]
+  --help, -h  - show help [optional]
+```
+
 ### `vibes-diy phone-link invite`
 
 ```text
@@ -1245,6 +1302,7 @@ OPTIONS:
   --address <str>         - The iMessage address the link is texted to; kept only masked (••12). [default: ]
   --csr <str>             - The self-signed device CSR (JWS) the bridge made for that address. [default: ]
   --claim-group-key <str> - Bridge accounts only: the group key of the address's guest chat principal; linking moves what the guest made into the account. Defaults to $VIBES_CLAIM_GROUP_KEY. [default: ]
+  --ttl <str>             - How long the link stays open: 30m, 24h, 7d, or plain seconds; 1 minute to 7 days, 30m when unset. Whoever opens it takes the number, so keep it short unless the text may sit unread. Defaults to $VIBES_INVITE_TTL. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
