@@ -36,6 +36,7 @@ where <subcommand> can be one of:
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
 - login - Authenticate this device with vibes.diy cloud.
 - mcp - Start an MCP server for AI agent data access (stdio transport)
+- members - Let people into a vibe by handle or email, list who's in, and remove them (owner-only; the same roster as the Share panel)
 - pull - Download source files of a deployed vibe to disk.
 - push - Upload files from the current directory to a vibe.
 - remix - Copy a vibe you can see into your account — files, chat history AND its look (theme, style, layout, icon, title). `--to handle/slug` names the destination; `--published` lands you on the live URL (clone) instead of in the editor; `--settings-only` carries just the settings into an app you already own.
@@ -572,6 +573,7 @@ OPTIONS:
   --id <str>          - Document ID (_id); falls back to the body _id, else generated [default: ]
   --file <str>        - Attach a file (or every file a glob matches) as _files.<basename> on the doc; repeatable. Unchanged files are kept, not re-uploaded. Works for any member who can write the vibe [default: ]
   --files <str>       - Same as --file [default: ]
+  --act-as <str>      - Write as this bound handle while --vibe addresses someone else's vibe (a follower answering it). Leaves your default handle unchanged [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1140,6 +1142,7 @@ where <subcommand> can be one of:
 - group - Trade a group key and a device CSR for a certificate signed as that iMessage group's own principal (iMessage bridge accounts only).
 - pay-for-group - Pay, from your own credits, for an iMessage group's next requests (the bridge runs this as the member who asked).
 - group-roster - Say which linked members are in an iMessage group, run as the group itself (the bridge runs this before each member's turn).
+- stop-sponsoring - End your own group-chat sponsorships, with no agent turn (the bridge runs this when a linked phone texts "stop sponsoring").
 - alerts - Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
 - wakes - Read what this handle's own vibes reported with ctx.notify since the last read, and move that place (the iMessage bridge runs it as each chat's principal, then wakes the agent).
 - vibes - List the vibes from other handles a group chat added (the iMessage bridge runs it as the group's principal for its new-chat line).
@@ -1216,6 +1219,22 @@ vibes-diy CLI phone-link group-roster
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --members <str>     - The chat's linked members by handle, comma separated. Replaces the last roster. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link stop-sponsoring`
+
+```text
+vibes-diy CLI phone-link stop-sponsoring
+> End your own group-chat sponsorships, with no agent turn (the bridge runs this when a linked phone texts "stop sponsoring").
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --with <str>        - Only the chats this member is in, by handle. Left out: every chat you sponsor. [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1625,6 +1644,85 @@ Add to .mcp.json in your project root:
 
     npx @modelcontextprotocol/inspector npx vibes-diy mcp --app-slug APP --handle USER
 ````
+
+## `vibes-diy members`
+
+```text
+vibes-diy CLI members <subcommand>
+> Let people into a vibe by handle or email, list who's in, and remove them (owner-only; the same roster as the Share panel)
+
+where <subcommand> can be one of:
+
+- add - Add a member by handle (access at once) or email (we send the invite; access when they open it). Role defaults to viewer
+- rm - Remove a member or cancel an email invite (code access stays with 'vibes-diy developer rm')
+- ls - List members, pending email invites, and open join requests
+
+For more help, try running `vibes-diy CLI members <subcommand> --help`
+```
+
+### `vibes-diy members add`
+
+```text
+vibes-diy CLI members add
+> Add a member by handle (access at once) or email (we send the invite; access when they open it). Role defaults to viewer
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+  --role <str>        - viewer (reads the data, the default) or editor (also writes it) [default: viewer]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <HANDLE_OR_EMAIL> - a string
+```
+
+### `vibes-diy members rm`
+
+```text
+vibes-diy CLI members rm
+> Remove a member or cancel an email invite (code access stays with 'vibes-diy developer rm')
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  <HANDLE_OR_EMAIL> - a string
+```
+
+### `vibes-diy members ls`
+
+```text
+vibes-diy CLI members ls
+> List members, pending email invites, and open join requests
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --app-slug <str>    - App slug; defaults to env VIBES_APP_SLUG or basename(cwd) [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Addresses the vibe too when --vibe is absent. Scripts and agents pass this or --vibe handle/app-slug on every call. [default: ]
+  --user-slug <str>   - [deprecated] use --handle or --vibe instead [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
 
 ## `vibes-diy pull`
 
