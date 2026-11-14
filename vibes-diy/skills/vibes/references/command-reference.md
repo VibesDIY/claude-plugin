@@ -979,7 +979,7 @@ where <subcommand> can be one of:
 - pause-publishing - Pause publishing across the platform, with --reason
 - resume-publishing - Turn publishing back on, with --reason
 - status - The publishing switch, active suspensions and the open report count
-- flags - List the prompt and code checker's flags, newest first (open by default)
+- flags - List the prompt and code checker's flags, newest first (open by default; --status allowed or error for records, --summary for counts)
 - triage - Triage an auto flag: --flag <id> --as false_alarm|escalated|resolved --reason <note>
 
 For more help, try running `vibes-diy CLI moderation <subcommand> --help`
@@ -1001,10 +1001,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1024,10 +1026,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1047,10 +1051,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1070,10 +1076,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1093,10 +1101,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1116,10 +1126,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1139,10 +1151,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1150,7 +1164,7 @@ FLAGS:
 
 ```text
 vibes-diy CLI moderation flags
-> List the prompt and code checker's flags, newest first (open by default)
+> List the prompt and code checker's flags, newest first (open by default; --status allowed or error for records, --summary for counts)
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -1162,10 +1176,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
@@ -1185,10 +1201,12 @@ OPTIONS:
   --limit <str>       - How many reports to list, newest first (default 50, up to 500) [default: ]
   --flag <str>        - Auto flag id (triage) [default: ]
   --as <str>          - Triage verdict: false_alarm, escalated or resolved [default: ]
+  --since <str>       - Auto flags --summary: window start, ISO 8601 (default the last 24 hours) [default: ]
 
 FLAGS:
   --json, -j - selects json output format [optional]
   --text, -t - select text output format [default: true]
+  --summary  - Auto flags: count every decision by status, category and kind instead of listing [optional]
   --help, -h - show help [optional]
 ```
 
