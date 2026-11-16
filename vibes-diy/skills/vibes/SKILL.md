@@ -86,6 +86,10 @@ Most invocations are generate-then-iterate. Do this inline:
    judged it privacy-sensitive — with its own `access.js` governing what
    visitors may do with its documents; a build that has no `access.js` yet
    stays private with a note, and `--private` keeps any app private.
+   Exit **3** means an earlier build in the run went live and the last
+   build's version is unconfirmed: the app IS live, so do not generate it
+   again — run the printed `vibes-diy versions` / `publish --fsId` hints
+   instead. Exit 1 is a real failure.
    `generate` follows its chat and returns when the agent goes idle — it only
    waits for typed follow-ups on a real terminal, never from a tool call.
 4. **Iterate.**
