@@ -31,7 +31,7 @@ where <subcommand> can be one of:
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
 - edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
-- generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
+- generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups. Exits 0 when live, 3 when live but the last build's version is unconfirmed, 1 on failure.
 - image - Paint a picture from a prompt (optionally from a photo) and save it locally, the same picture the agent's make_picture paints; billed like an image in an app.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
 - login - Authenticate this device with vibes.diy cloud.
@@ -1224,6 +1224,7 @@ where <subcommand> can be one of:
 - group-roster - Say which linked members are in an iMessage group, run as the group itself (the bridge runs this before each member's turn).
 - stop-sponsoring - End your own group-chat sponsorships, with no agent turn (the bridge runs this when a linked phone texts "stop sponsoring").
 - alerts - Read what matched this account's "let me know when…" alerts since the last read, and move that place (the iMessage bridge runs it as each linked phone).
+- settle-alert - Say how a reminder this phone was handed went: sent, or missed when it was let go unsent (the iMessage bridge runs it after each one).
 - wakes - Read what this handle's own vibes reported with ctx.notify since the last read, and move that place (the iMessage bridge runs it as each chat's principal, then wakes the agent).
 - vibes - List the vibes from other handles a group chat added (the iMessage bridge runs it as the group's principal for its new-chat line).
 - pause-vibe - A member's STOP in a group chat: pause the added vibe it names, list what a STOP paused, or turn them back on (the iMessage bridge runs it as the group's principal).
@@ -1331,6 +1332,24 @@ vibes-diy CLI phone-link alerts
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --handle <str>      - The handle the phone is linked to (default: the account's active handle). [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+```
+
+### `vibes-diy phone-link settle-alert`
+
+```text
+vibes-diy CLI phone-link settle-alert
+> Say how a reminder this phone was handed went: sent, or missed when it was let go unsent (the iMessage bridge runs it after each one).
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --handle <str>      - The handle the phone is linked to (default: the account's active handle). [default: ]
+  --id <str>          - The alert's id, as `phone-link alerts` gave it.
+  --outcome <str>     - sent, or missed.
 
 FLAGS:
   --json, -j - selects json output format [optional]
@@ -1569,7 +1588,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI generate
-> Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups.
+> Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups. Exits 0 when live, 3 when live but the last build's version is unconfirmed, 1 on failure.
 
 OPTIONS:
   --api-url, -u <str>   - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
