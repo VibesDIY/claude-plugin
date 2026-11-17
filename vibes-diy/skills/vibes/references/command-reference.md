@@ -66,6 +66,7 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 ### Other Commands
 
 - Name the app as `handle/app-slug` on every command (a bare slug falls back to your default handle — fine at a terminal, never in a script or agent)
+- `npx vibes-diy push --vibe <handle>/<app-slug> --title "Potluck Sign-up"` — name a new app; the tab, share cards and emails show it (it never renames an app that already has a name)
 - `npx vibes-diy push --vibe <handle>/<app-slug> --access gated` — deploy so anyone can view but only members write (`open` is the default, `private` is members-only)
 - `npx vibes-diy push --vibe <handle>/<app-slug> --access private` — deploy for you and the members you invite, and nobody else
 - `npx vibes-diy push --handle <handle> --app-slug other-name` — deploy to a different app slug instead of the directory name
@@ -1865,6 +1866,7 @@ OPTIONS:
   --access <str>          - Deployment posture: open (anyone can reach it; your access.js governs its documents), gated (anyone can view, members write), private (members only). Defaults to open. [default: ]
   --from <str>            - Carry the settings (theme, style, layout, icon, title) of this vibe of yours — handle/app-slug — into the pushed app. The source must be a vibe you own; that is checked before anything is minted. [default: ]
   --api-key <str>         - Provider API key for a wizard turn triggered by this push (BYOK): bills your own key instead of your Vibes credits. Not persisted. [optional]
+  --title <str>           - The app's name, shown in the browser tab, share cards and emails. Set only when the app has no name yet, so a name changed in settings is kept. Without it a new pushed app reads "a Vibes DIY app". [default: ]
   --message, -m <str>     - Context for the seeded chat: describe what the app is / the request behind it. Becomes the opening message of the vibe's chat instead of a generic 'Initial push' note. [default: ]
   --idle-timeout <number> - Idle timeout in ms (resets on any incoming message). Defaults to api-impl's 30s; bump higher for very large pushes that exceed post-storage DB-write windows. [optional]
 
