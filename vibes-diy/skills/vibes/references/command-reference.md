@@ -1281,6 +1281,7 @@ vibes-diy CLI phone-link pay-for-group
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --group <str>       - The group principal, group:<id>. [default: ]
+  --guest-asker <str> - With --sponsored: that member's own one-to-one phone-guest principal (group:<id>), so their yes to a text-later offer is theirs. [default: ]
   --members <str>     - The chat's linked members by handle, comma separated, for your own list of group chats. [default: ]
 
 FLAGS:
