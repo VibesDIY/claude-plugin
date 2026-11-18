@@ -1229,6 +1229,7 @@ where <subcommand> can be one of:
 - wakes - Read what this handle's own vibes reported with ctx.notify since the last read, and move that place (the iMessage bridge runs it as each chat's principal, then wakes the agent).
 - vibes - List the vibes from other handles a group chat added (the iMessage bridge runs it as the group's principal for its new-chat line).
 - pause-vibe - A member's STOP in a group chat: pause the added vibe it names, list what a STOP paused, or turn them back on (the iMessage bridge runs it as the group's principal).
+- bind-app - Platform admin: bind an app to a group chat from the backend, as a member texting its link would; its tools ride every turn.
 - invite - Mint a one-time link that signs the person who opens it in and links an iMessage address to their account (iMessage bridge accounts only).
 - invite-status - Check a phone-link invite; once the person accepts, returns the device certificate exactly once (iMessage bridge accounts only).
 - classify - Pick the classic iMessage tapback (❤️ 👍 👎 😂 ‼️ ❓) that fits a message, or none, for the bridge's instant reaction (iMessage bridge accounts only).
@@ -1409,6 +1410,24 @@ FLAGS:
   --text, -t  - select text output format [default: true]
   --stop-line - posted: the opt-out line rode the text the group got. [optional]
   --help, -h  - show help [optional]
+```
+
+### `vibes-diy phone-link bind-app`
+
+```text
+vibes-diy CLI phone-link bind-app
+> Platform admin: bind an app to a group chat from the backend, as a member texting its link would; its tools ride every turn.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
+  --group <str>       - The group chat's handle (vg-…). [default: ]
+  --vibe <str>        - The app to bind, owner/slug. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --clear    - Take the chat's bound app off (its picture app stays). [optional]
+  --help, -h - show help [optional]
 ```
 
 ### `vibes-diy phone-link invite`
