@@ -1911,7 +1911,7 @@ OPTIONS:
 FLAGS:
   --json, -j      - selects json output format [optional]
   --text, -t      - select text output format [default: true]
-  --published     - Land on the copy's live URL (clone) instead of in the editor. Either way the copy is published and private. [optional]
+  --published     - Land on the copy's live URL (clone) instead of in the editor. Either way the copy is published, open like a fresh build unless it is privacy-sensitive or carries personal details. [optional]
   --settings-only - Carry only the settings (look, title, icon…) into --to, which must already exist and be yours. [optional]
   --help, -h      - show help [optional]
 
