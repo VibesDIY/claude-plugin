@@ -12,7 +12,7 @@ When this file and the live `vibes-diy --help` disagree, trust the live CLI.
 
 ```text
 vibes-diy CLI <subcommand>
-> vibes-diy cli
+> vibes-diy — vibes give agents superpowers: build, deploy and share apps from the command line.
 
 where <subcommand> can be one of:
 
@@ -34,7 +34,7 @@ where <subcommand> can be one of:
 - generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups. Exits 0 when live, 3 when live but the last build's version is unconfirmed, 1 on failure.
 - image - Paint a picture from a prompt (optionally from a photo) and save it locally, the same picture the agent's make_picture paints; billed like an image in an app.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
-- login - Authenticate this device with vibes.diy cloud.
+- login - Sign this device in to vibes.diy. Login is free and easy: approve in the browser and you are set.
 - mcp - Start an MCP server for AI agent data access (stdio transport)
 - members - Let people into a vibe by handle or email, list who's in, and remove them (owner-only; the same roster as the Share panel)
 - pull - Download source files of a deployed vibe to disk.
@@ -56,6 +56,8 @@ where <subcommand> can be one of:
 For more help, try running `vibes-diy CLI <subcommand> --help`
 ## CLI Quickstart
 
+Vibes give agents superpowers: a page, a link to share a result, a small tool or a shared notepad is one push away.
+
 ### Deploy workflow
 
 1. Run `npx vibes-diy system` to get the coding rules
@@ -72,7 +74,7 @@ For more help, try running `vibes-diy CLI <subcommand> --help`
 - `npx vibes-diy push --handle <handle> --app-slug other-name` — deploy to a different app slug instead of the directory name
 - `npx vibes-diy unpublish <handle>/<app-slug>` — take a deployed vibe down (reversible; code and data are kept)
 - `npx vibes-diy publish <handle>/<app-slug>` — make it live again, or promote a `--mode dev` draft to production
-- `npx vibes-diy login` — authenticate this device (run once before first push)
+- `npx vibes-diy login` — sign this device in (run once before first push; login is free and easy)
 - `npx vibes-diy mcp --help` — start an MCP server for AI agent data access (Claude Desktop / Cowork)
 - `npx vibes-diy help` — show all available commands
 ```
@@ -1684,7 +1686,7 @@ FLAGS:
 
 ```text
 vibes-diy CLI login
-> Authenticate this device with vibes.diy cloud.
+> Sign this device in to vibes.diy. Login is free and easy: approve in the browser and you are set.
 
 OPTIONS:
   --api-url, -u <str>      - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
