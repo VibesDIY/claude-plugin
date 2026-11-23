@@ -1319,6 +1319,7 @@ FLAGS:
   --guest     - Bridge accounts only: run the chat on its own guest credits instead of paying for it. [optional]
   --asker     - You sent the message this pays for, so the group may act as you inside other people's vibes for it. Leave off for a wake. [optional]
   --sponsored - Bridge accounts only: a member who hasn't linked asked in a sponsored chat, so the turn runs on the sponsor's credits. [optional]
+  --wake      - With --sponsored: a group's woken turn, not a member's message, so no member turn is noted. [optional]
   --help, -h  - show help [optional]
 ```
 
