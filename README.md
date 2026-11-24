@@ -22,6 +22,7 @@ or just describe a small shareable app and accept the suggestion.
 
 ## Contributing
 
-This repository is generated from the vibes.diy monorepo — PRs here will be
-overwritten; contribute upstream at https://github.com/VibesDIY/vibes.diy
-under `claude-plugin/`.
+This repository is generated and published automatically, so changes made
+here are replaced on the next release. Questions, ideas and bug reports are
+welcome at https://vibes.diy/help or help@vibes.diy, and the docs live at
+https://good.vibes.diy/creator-documentation/.
