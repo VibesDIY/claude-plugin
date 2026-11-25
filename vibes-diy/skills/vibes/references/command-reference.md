@@ -17,7 +17,7 @@ vibes-diy CLI <subcommand>
 where <subcommand> can be one of:
 
 - agent - Send one message to a handle's agent (the /agent conversation) and print its reply. Each handle has its own agent conversation, memory and vibes.
-- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, whether signed-out visitors can write, whether Vibes DIY may improve it, and calling its own backend routes
+- app - Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, whether signed-out visitors can write, whether Vibes DIY may improve it, and calling its own backend routes and tools
 - app-chats - List or read the runtime in-app chats stored by a deployed vibe (the app's own chat/image messages, NOT the codegen build transcript).
 - chats - (removed) Use 'codegen-log' or 'app-chats' instead.
 - claim-handle - Claim the handle your published apps carry (vibes.diy/<handle>/<app>) and make it your default. Run with no name to see suggestions — nothing is claimed until you name it. Scripts and agents pass --no-default so the account default stays put, then name handle/app-slug on every later call.
@@ -107,21 +107,22 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app <subcommand>
-> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, whether signed-out visitors can write, whether Vibes DIY may improve it, and calling its own backend routes
+> Operate a deployed vibe: scheduled-task health, recovery, its ctx.log diagnostics, its visitor-facing chips, its look, its gallery screenshot, whether signed-out visitors can write, whether Vibes DIY may improve it, and calling its own backend routes and tools
 
 where <subcommand> can be one of:
 
-- status - Show a vibe's scheduled-task health: last tick, next tick, failures. Re-arms a dead timer if it finds one.
-- rearm - Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
+- status - Show a vibe's scheduled-task health: last tick, next tick, failures, and any ctx.later timers waiting. Re-arms a dead timer if it finds one.
+- rearm - Re-arm a vibe's scheduled task from its live release, and resume any ctx.later timers `app schedule off` paused (a no-op when both are already running).
 - tick - Run a vibe's scheduled task once, now, as if the clock read --at (try Thursday 9pm today). Leaves the real schedule as it is.
-- schedule - Control a vibe's scheduled task (turning it back on is `app rearm`, which reads the live release)
+- schedule - Control a vibe's scheduled task and ctx.later timers (turning them back on is `app rearm`, which reads the live release)
 - logs - Show what a vibe reported with ctx.log — its own diagnostics over a recent window, oldest line first. --tail follows.
 - chips - Set the suggestion chips visitors see on a vibe's edit card (up to 3). --clear shows none. This is a publish: it changes what strangers see, not your own card. Publishing the vibe again re-derives the chips from your chat and overwrites what you set here — so set them after you publish.
 - screenshot - Re-capture the gallery screenshot of one or more named vibes, through the platform's own capture path.
 - look - Read or change an existing vibe's look: its colour theme, its look package (Pouf, Brute, …), and its layout archetype and flourishes
-- anon-write - Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
+- anon-write - Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Until you set it, an open app follows a literal `allowAnonymous: true` in the access.js each production push releases, and push prints a line when that changes it.
 - auto-enhance - Read or set Allow auto-enhance: whether Vibes DIY may push routine fixes and upgrades to your live app (owner only). `on` welcomes them, and those releases show in your chat as “Automatically enhanced by Vibes DIY”; `off` stops routine upgrades, and we may still make changes to keep the app safe and working. No argument reads. Default is on.
-- call - Call one of a vibe's own backend.js routes as you, signed in — the same call the app's own buttons make. Prints the status and the route's answer; exits 1 on a non-2xx answer.
+- call - Call one of a vibe's own backend.js routes (/path) or tools (a tool name, with --input) as you, signed in — the same call the app's own buttons make. A tool its maker marked to ask about first runs only after you answer y at the terminal. Prints the answer; exits 1 on a non-2xx answer or a tool that did not answer ok.
+- tools - List the tools a vibe's backend.js offers you, signed in: each one's name, what it does and the input it takes. Run one with `app call <vibe> <tool>`.
 
 For more help, try running `vibes-diy CLI app <subcommand> --help`
 ```
@@ -130,7 +131,7 @@ For more help, try running `vibes-diy CLI app <subcommand> --help`
 
 ```text
 vibes-diy CLI app status
-> Show a vibe's scheduled-task health: last tick, next tick, failures. Re-arms a dead timer if it finds one.
+> Show a vibe's scheduled-task health: last tick, next tick, failures, and any ctx.later timers waiting. Re-arms a dead timer if it finds one.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -150,7 +151,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app rearm
-> Re-arm a vibe's scheduled task from its live release (a no-op when the schedule is already running).
+> Re-arm a vibe's scheduled task from its live release, and resume any ctx.later timers `app schedule off` paused (a no-op when both are already running).
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -191,11 +192,11 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app schedule <subcommand>
-> Control a vibe's scheduled task (turning it back on is `app rearm`, which reads the live release)
+> Control a vibe's scheduled task and ctx.later timers (turning them back on is `app rearm`, which reads the live release)
 
 where <subcommand> can be one of:
 
-- off - Stop a vibe's scheduled task now (a pause — the live release is untouched, so a deploy re-arms it).
+- off - Stop a vibe's scheduled task and pause its ctx.later timers now (a pause — the live release is untouched, so a deploy or `app rearm` starts both again).
 
 For more help, try running `vibes-diy CLI app schedule <subcommand> --help`
 ```
@@ -204,7 +205,7 @@ For more help, try running `vibes-diy CLI app schedule <subcommand> --help`
 
 ```text
 vibes-diy CLI app schedule off
-> Stop a vibe's scheduled task now (a pause — the live release is untouched, so a deploy re-arms it).
+> Stop a vibe's scheduled task and pause its ctx.later timers now (a pause — the live release is untouched, so a deploy or `app rearm` starts both again).
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -362,7 +363,7 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app anon-write
-> Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Default is off.
+> Read or set whether signed-out visitors' writes from their browser reach the server (owner, or a developer they delegated); writes the app's own backend.js makes need only access.js's `allowAnonymous`. `on` admits them wherever access.js allows it; `off` keeps them on the visitor's device. No argument reads. Until you set it, an open app follows a literal `allowAnonymous: true` in the access.js each production push releases, and push prints a line when that changes it.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
@@ -404,12 +405,34 @@ ARGUMENTS:
 
 ```text
 vibes-diy CLI app call
-> Call one of a vibe's own backend.js routes as you, signed in — the same call the app's own buttons make. Prints the status and the route's answer; exits 1 on a non-2xx answer.
+> Call one of a vibe's own backend.js routes (/path) or tools (a tool name, with --input) as you, signed in — the same call the app's own buttons make. A tool its maker marked to ask about first runs only after you answer y at the terminal. Prints the answer; exits 1 on a non-2xx answer or a tool that did not answer ok.
 
 OPTIONS:
   --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --method, -X <str>  - GET, POST, PUT, PATCH or DELETE. Default POST. [default: POST]
   --body <str>        - A JSON request body, sent as application/json. [default: ]
+  --input <str>       - A tool's input, as one JSON object (e.g. '{"day":"Thu"}'). Default {}. [default: ]
+  --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
+  --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
+
+FLAGS:
+  --json, -j - selects json output format [optional]
+  --text, -t - select text output format [default: true]
+  --help, -h - show help [optional]
+
+ARGUMENTS:
+  [vibe]          - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
+  [route-or-tool] - A route, relative to the app's /_api root (e.g. /go-live), or one of its tools by name (e.g. book_slot; see app tools). [optional]
+```
+
+### `vibes-diy app tools`
+
+```text
+vibes-diy CLI app tools
+> List the tools a vibe's backend.js offers you, signed in: each one's name, what it does and the input it takes. Run one with `app call <vibe> <tool>`.
+
+OPTIONS:
+  --api-url, -u <str> - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
   --vibe <str>        - Vibe identifier as handle/app-slug. Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [default: ]
   --handle <str>      - Act as this bound handle for this call only (leaves your default handle unchanged). Scripts and agents pass this or handle/app-slug on every call. [default: ]
 
@@ -420,7 +443,6 @@ FLAGS:
 
 ARGUMENTS:
   [vibe] - The vibe as handle/app-slug (e.g. jchris/hat-smeller). Scripts and agents always pass handle/app-slug; a bare app-slug resolves through your default handle and is for interactive use only. [optional]
-  [path] - The route, relative to the app's /_api root (e.g. /go-live). [optional]
 ```
 
 ## `vibes-diy app-chats`
