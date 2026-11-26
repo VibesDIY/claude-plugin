@@ -30,7 +30,7 @@ where <subcommand> can be one of:
 - phone-link - Link a phone to an account so texting Vibes reaches that person's agent (redeem is for the iMessage bridge)
 - developer - Delegate code push/edit/publish/codegen on a vibe to another account (owner-only; you keep revoke, unpublish/delete, and ownership)
 - doctor - Read-only status: CLI version, device key and certificate, keybag path, API URL, proxy decision, and WebSocket handshake. Use --proxy <url|direct> or VIBES_PROXY to override the proxy.
-- edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live.
+- edit - Send a follow-up prompt to an existing vibe, write files to disk, and push live. A change that would crash the app as it opens stays a draft: the live link keeps the last release and the command exits 1.
 - generate - Generate a vibe from a text prompt and write it to disk. The server builds and releases it; on a terminal the chat stays open for follow-ups. Exits 0 when live, 3 when live but the last build's version is unconfirmed, 1 on failure.
 - image - Paint a picture from a prompt (optionally from a photo) and save it locally, the same picture the agent's make_picture paints; billed like an image in an app.
 - list - List your vibes (ownerHandle/appSlug). Use --json for NDJSON output.
@@ -1628,7 +1628,7 @@ FLAGS:
 
 ```text
 vibes-diy CLI edit
-> Send a follow-up prompt to an existing vibe, write files to disk, and push live.
+> Send a follow-up prompt to an existing vibe, write files to disk, and push live. A change that would crash the app as it opens stays a draft: the live link keeps the last release and the command exits 1.
 
 OPTIONS:
   --api-url, -u <str>   - set the api url [default: https://vibes.diy/api?.stable-entry.=cli]
